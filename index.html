@@ -7,964 +7,775 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root {
-  --bg:#0a0c10; --s1:#111318; --s2:#181c24; --s3:#1f242f;
-  --border:#252b38; --border2:#2e3647;
-  --text:#e8edf5; --text2:#7e8fa8; --text3:#4a566a;
-  --gold:#f0c040; --gold2:#c89a20;
-  --thiana:#4e8ef7; --wellcome:#9b59b6; --glamour:#e91e8c;
-  --vecos:#27ae60; --sauna:#f39c12; --cocina:#e74c3c; --masajes:#1abc9c;
-  --pos:#3b82f6; --yape:#7c3aed; --efectivo:#16a34a;
-  --r:10px; --r2:6px;
-  --shadow:0 8px 32px rgba(0,0,0,.5);
-}
+:root{--bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1f242f;--border:#252b38;--border2:#2e3647;--text:#e8edf5;--text2:#7e8fa8;--text3:#4a566a;--gold:#f0c040;--thiana:#4e8ef7;--wellcome:#9b59b6;--glamour:#e91e8c;--vecos:#27ae60;--sauna:#f39c12;--cocina:#e74c3c;--masajes:#1abc9c;--pos:#3b82f6;--yape:#7c3aed;--r:10px;--r2:6px;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-
-/* HEADER */
 header{background:var(--s1);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--gold);display:flex;align-items:center;gap:8px}
-.logo-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;color:var(--text2);letter-spacing:.5px;margin-top:2px}
-.hd-stats{display:flex;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--gold)}
+.logo-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.hd-stats{display:flex;gap:10px}
 .hd-stat{background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--text2)}
 .hd-stat b{color:var(--gold);font-weight:700}
-
-/* NAV */
 .nav-wrap{background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:56px;z-index:190}
 .nav{display:flex;padding:0 24px;gap:2px;min-width:max-content}
-.nb{background:none;border:none;color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.nb:hover{color:var(--text)}
-.nb.active{color:var(--gold);border-bottom-color:var(--gold)}
-.nb .dot{width:7px;height:7px;border-radius:50%}
-
-/* LAYOUT */
+.nb{background:none;border:none;color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.nb:hover{color:var(--text)}.nb.active{color:var(--gold);border-bottom-color:var(--gold)}
 main{padding:24px;max-width:1600px;margin:0 auto}
 .tab{display:none}.tab.active{display:block;animation:fi .3s ease}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* SECTION HEADER */
-.sh{margin-bottom:20px}
-.sh h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--text);line-height:1}
-.sh p{font-size:13px;color:var(--text2);margin-top:4px}
-
-/* CARD */
-.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px}
-.card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* NEGOCIO SELECTOR */
-.neg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:24px}
-.neg-btn{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:12px 8px;cursor:pointer;text-align:center;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:6px}
-.neg-btn:hover{border-color:var(--border2);background:var(--s3)}
-.neg-btn.active{border-color:var(--active-color,var(--gold));background:color-mix(in srgb,var(--active-color,var(--gold)) 8%,var(--s2))}
-.neg-btn .neg-icon{font-size:22px}
-.neg-btn .neg-name{font-size:11px;font-weight:700;letter-spacing:.3px}
-.neg-btn .neg-type{font-size:10px;color:var(--text2)}
-
-/* FORM */
-.fg{display:grid;gap:14px}
-.fg-2{grid-template-columns:1fr 1fr}
-.fg-3{grid-template-columns:1fr 1fr 1fr}
-.fg-4{grid-template-columns:1fr 1fr 1fr 1fr}
-.fl{display:flex;flex-direction:column;gap:5px}
-.fl label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text2)}
-.fl input,.fl select,.fl textarea{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;width:100%}
+.sh h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;line-height:1}
+.sh p{font-size:13px;color:var(--text2);margin-top:4px;margin-bottom:20px}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.ct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ct::after{content:'';flex:1;height:1px;background:var(--border)}
+.neg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:20px}
+.nb2{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:12px 8px;cursor:pointer;text-align:center;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:5px}
+.nb2:hover{border-color:var(--border2)}.nb2.active{border-color:var(--ac,var(--gold));background:color-mix(in srgb,var(--ac,var(--gold)) 8%,var(--s2))}
+.ni{font-size:22px}.nn{font-size:11px;font-weight:700}.nt{font-size:10px;color:var(--text2)}
+.fg{display:grid;gap:12px}.fg2{grid-template-columns:1fr 1fr}.fg3{grid-template-columns:1fr 1fr 1fr}.fg4{grid-template-columns:1fr 1fr 1fr 1fr}
+.fl{display:flex;flex-direction:column;gap:4px}
+.fl label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text2)}
+.fl input,.fl select{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;width:100%}
 .fl input:focus,.fl select:focus{border-color:var(--gold)}
 .fl select option{background:var(--s2)}
-.fl input[type=number]{text-align:right}
-
-/* INGRESO TYPE TABS */
-.type-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.type-tab{background:var(--s2);border:1px solid var(--border);border-radius:20px;color:var(--text2);font-size:12px;font-weight:600;padding:6px 14px;cursor:pointer;transition:all .2s}
-.type-tab:hover{border-color:var(--border2)}
-.type-tab.active{background:var(--tab-color,var(--gold));border-color:var(--tab-color,var(--gold));color:#000}
-
-/* BUTTONS */
-.btn{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;border:none;border-radius:var(--r2);cursor:pointer;padding:10px 20px;transition:all .2s;display:inline-flex;align-items:center;gap:6px;letter-spacing:.3px}
-.btn-gold{background:var(--gold);color:#000}.btn-gold:hover{background:#f5cc50;transform:translateY(-1px)}
-.btn-ghost{background:var(--s2);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
-.btn-danger{background:#c0392b;color:#fff}.btn-danger:hover{background:#e74c3c}
-.btn-green{background:#27ae60;color:#fff}.btn-green:hover{background:#2ecc71}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-
-/* TABLA */
-.tbl-wrap{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.tbl-toolbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{background:var(--s2);padding:10px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text2);border-bottom:1px solid var(--border)}
+.note{font-size:10px;color:var(--text3);margin-top:2px}
+.note.w{color:#f8c471}.note.g{color:#4ade80}
+.sec{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.sec-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:10px}
+.btn{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;border:none;border-radius:var(--r2);cursor:pointer;padding:10px 20px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-g{background:var(--gold);color:#000}.btn-g:hover{background:#f5cc50;transform:translateY(-1px)}
+.btn-s{background:var(--s2);color:var(--text);border:1px solid var(--border)}.btn-s:hover{border-color:var(--gold);color:var(--gold)}
+.btn-d{background:#c0392b;color:#fff}.btn-d:hover{background:#e74c3c}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.resbox{background:var(--bg);border:1px solid var(--gold);border-radius:var(--r);padding:16px;margin-top:14px}
+.rb-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gold);margin-bottom:12px}
+.rb-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.rb-i{display:flex;flex-direction:column;gap:3px}
+.rb-l{font-size:10px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.rb-v{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px}
+.rb-s{font-size:10px;color:var(--text3)}
+/* GASTOS FILAS */
+.gd-t{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.gd-t th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);padding:5px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.gd-t td{padding:4px 6px;border-bottom:1px solid var(--border)}
+.gd-t tr:last-child td{border-bottom:none}
+.gd-t input,.gd-t select{background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;padding:4px 7px;width:100%}
+.add-btn{background:var(--s3);border:1px dashed var(--border2);border-radius:var(--r2);color:var(--text2);font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:all .2s;margin-top:6px}
+.add-btn:hover{border-color:var(--gold);color:var(--gold)}
+.rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:2px 5px;border-radius:4px;transition:all .2s}
+.rm:hover{background:rgba(192,57,43,.15);color:#e74c3c}
+/* TABLAS */
+.tw{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+thead th{background:var(--s2);padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--s2)}
-tbody td{padding:10px 12px;vertical-align:middle}
-.empty{text-align:center;padding:40px;color:var(--text2);font-size:13px}
-
-/* PILLS */
-.pill{display:inline-block;border-radius:20px;font-size:10px;font-weight:700;padding:2px 9px;letter-spacing:.3px}
-.p-thiana{background:rgba(78,142,247,.15);color:#7aaeff}
-.p-wellcome{background:rgba(155,89,182,.15);color:#c39bd3}
-.p-glamour{background:rgba(233,30,140,.15);color:#f06292}
-.p-vecos{background:rgba(39,174,96,.15);color:#58d68d}
-.p-sauna{background:rgba(243,156,18,.15);color:#f8c471}
-.p-cocina{background:rgba(231,76,60,.15);color:#f1948a}
+tbody td{padding:9px 12px;vertical-align:middle}
+.empty{text-align:center;padding:40px;color:var(--text2)}
+.pill{display:inline-block;border-radius:20px;font-size:10px;font-weight:700;padding:2px 8px}
+.p-thiana{background:rgba(78,142,247,.15);color:#7aaeff}.p-wellcome{background:rgba(155,89,182,.15);color:#c39bd3}
+.p-glamour{background:rgba(233,30,140,.15);color:#f06292}.p-vecos{background:rgba(39,174,96,.15);color:#58d68d}
+.p-sauna{background:rgba(243,156,18,.15);color:#f8c471}.p-cocina{background:rgba(231,76,60,.15);color:#f1948a}
 .p-masajes{background:rgba(26,188,156,.15);color:#48c9b0}
-.p-efectivo{background:rgba(22,163,74,.15);color:#4ade80}
-.p-pos{background:rgba(59,130,246,.15);color:#93c5fd}
-.p-yape{background:rgba(124,58,237,.15);color:#c4b5fd}
-.p-ingreso{background:rgba(22,163,74,.12);color:#4ade80}
-.p-gasto{background:rgba(239,68,68,.12);color:#f87171}
-.p-sauna-desde-thiana{background:rgba(243,156,18,.1);color:#f8c471;border:1px solid rgba(243,156,18,.3)}
-
-/* STATS GRID */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
-.stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;position:relative;overflow:hidden}
+.p-ing{background:rgba(22,163,74,.1);color:#4ade80}.p-gas{background:rgba(239,68,68,.1);color:#f87171}
+.p-st{background:rgba(243,156,18,.1);color:#f8c471;border:1px solid rgba(243,156,18,.3)}
+.cat{background:var(--s3);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:600;padding:2px 7px;color:var(--text2)}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;overflow:hidden}
 .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--sc,var(--gold))}
-.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:6px}
-.stat-val{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;line-height:1}
-.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
-
-/* BALANCE CARD */
-.balance-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
-.local-balance{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.lb-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.lb-icon{font-size:20px}
-.lb-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px}
-.lb-body{padding:14px 16px}
-.lb-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px}
-.lb-row:last-child{border-bottom:none}
-.lb-row.total{font-weight:700;padding-top:10px;margin-top:4px;font-size:14px}
-.lb-row .lbl{color:var(--text2)}
-.lb-row .val{font-weight:600}
-.val-pos{color:#4ade80}.val-neg{color:#f87171}.val-neu{color:var(--text)}
-
-/* SEARCH */
-.search{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;padding:7px 12px;outline:none;width:200px;transition:border-color .2s}
-.search:focus{border-color:var(--gold)}
-
-/* MODAL */
+.sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text2);margin-bottom:5px}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;line-height:1}
+.ss{font-size:10px;color:var(--text3);margin-top:2px}
+/* BAL CARDS */
+.bal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px}
+.bc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.bch{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.bcb{padding:14px 16px}
+.br{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:12px}
+.br.tot{border-top:1px solid var(--border2);margin-top:6px;padding-top:8px;font-size:13px;font-weight:700}
+.br .l{color:var(--text2)}.br .l2{color:var(--text);font-weight:600}
+.br .v{font-weight:600}.vp{color:#4ade80}.vn{color:#f87171}.vb{color:#48c9b0}
+.sdiv{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);padding:8px 0 4px;border-top:1px dashed var(--border);margin-top:6px}
+/* RESUMEN TABLE */
+.rt{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+.rt th{background:var(--s2);padding:8px 12px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);border-bottom:1px solid var(--border)}
+.rt th:first-child{text-align:left}
+.rt td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--border)}
+.rt td:first-child{text-align:left;font-weight:600}
+.rt tr.sub td{background:rgba(240,192,64,.04);font-weight:700}
+.rt tr.grd td{background:var(--s2);font-family:'Bebas Neue',sans-serif;font-size:14px;border-top:2px solid var(--gold)}
+.rt tr:hover td{background:rgba(255,255,255,.02)}
+.mb{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.mb select{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-size:13px;padding:7px 12px;outline:none;cursor:pointer}
+.srch{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-size:12px;padding:7px 12px;outline:none;width:200px}
+.srch:focus{border-color:var(--gold)}
+.del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:3px 6px;border-radius:4px;transition:all .2s}
+.del:hover{background:rgba(192,57,43,.15);color:#e74c3c}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:90%;max-width:440px;box-shadow:var(--shadow)}
-.modal h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:8px}
-.modal p{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6}
+.modal{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:90%;max-width:420px}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:8px}
+.modal p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.6}
 .modal-btns{display:flex;gap:8px;justify-content:flex-end}
-
-/* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--r);padding:12px 18px;font-size:13px;z-index:999;transform:translateY(60px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);max-width:300px}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.err{border-left-color:#e74c3c}
-
-/* INGRESO FORM SECTIONS */
-.ingreso-section{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
-.is-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.ingreso-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.yape-note{font-size:11px;color:var(--yape);margin-top:4px}
-.comision-note{font-size:11px;color:#f8c471;background:rgba(248,196,113,.08);border-radius:4px;padding:4px 8px;margin-top:4px}
-
-/* RESUMEN TABLE */
-.res-table{width:100%;border-collapse:collapse;font-size:12px}
-.res-table th{background:var(--s2);padding:9px 12px;text-align:right;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);border-bottom:1px solid var(--border)}
-.res-table th:first-child{text-align:left}
-.res-table td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--border)}
-.res-table td:first-child{text-align:left;font-weight:600}
-.res-table tr.sub-total td{background:rgba(240,192,64,.05);font-weight:700}
-.res-table tr.grand-total td{background:var(--s2);font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.5px;border-top:2px solid var(--gold)}
-.res-table tr:last-child td{border-bottom:none}
-.res-table tr:hover td{background:rgba(255,255,255,.02)}
-
-/* MONTH SELECTOR */
-.month-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.month-bar select{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:7px 12px;outline:none;cursor:pointer}
-
-/* DEL BTN */
-.delbtn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:3px 7px;border-radius:4px;transition:all .2s}
-.delbtn:hover{background:rgba(231,76,60,.15);color:#e74c3c}
-
-/* GASTO CATEGORY TAG */
-.cat-tag{background:var(--s3);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:600;padding:2px 8px;color:var(--text2)}
-
-@media(max-width:768px){
-  main{padding:12px}
-  .fg-2,.fg-3,.fg-4{grid-template-columns:1fr}
-  .ingreso-cols{grid-template-columns:1fr}
-  .neg-grid{grid-template-columns:repeat(4,1fr)}
-  header{padding:0 12px}
-}
+.toast.show{transform:translateY(0);opacity:1}.toast.err{border-left-color:#e74c3c}
+@media(max-width:768px){main{padding:12px}.fg2,.fg3,.fg4{grid-template-columns:1fr}.neg-grid{grid-template-columns:repeat(4,1fr)}header{padding:0 12px}.hd-stats{display:none}}
 </style>
 </head>
 <body>
-
 <header>
-  <div>
-    <div class="logo">⬡ INVERSIONES JOSELITO</div>
-    <div class="logo-sub">Sistema Contable Integral</div>
-  </div>
+  <div><div class="logo">⬡ INVERSIONES JOSELITO</div><div class="logo-sub">Sistema Contable Integral</div></div>
   <div class="hd-stats">
     <div class="hd-stat">Ingresos mes: <b id="hd-ing">S/. 0</b></div>
-    <div class="hd-stat">Gastos mes: <b id="hd-gas">S/. 0</b></div>
+    <div class="hd-stat">Gastos extra: <b id="hd-gas">S/. 0</b></div>
     <div class="hd-stat">Balance: <b id="hd-bal">S/. 0</b></div>
   </div>
 </header>
-
-<div class="nav-wrap">
-  <nav class="nav">
-    <button class="nb active" onclick="tab('ingresos')" data-tab="ingresos"><span>💰</span> Registrar Ingreso</button>
-    <button class="nb" onclick="tab('gastos')" data-tab="gastos"><span>📤</span> Registrar Gasto</button>
-    <button class="nb" onclick="tab('historial')" data-tab="historial"><span>☰</span> Historial</button>
-    <button class="nb" onclick="tab('balance')" data-tab="balance"><span>◈</span> Balance por Local</button>
-    <button class="nb" onclick="tab('resumen')" data-tab="resumen"><span>📊</span> Resumen General</button>
-    <button class="nb" onclick="tab('exportar')" data-tab="exportar"><span>↓</span> Exportar</button>
-  </nav>
-</div>
+<div class="nav-wrap"><nav class="nav">
+  <button class="nb active" onclick="tab('ing')" data-tab="ing">💰 Registrar Ingreso</button>
+  <button class="nb" onclick="tab('gas')" data-tab="gas">📤 Gastos Extra</button>
+  <button class="nb" onclick="tab('hist')" data-tab="hist">☰ Historial</button>
+  <button class="nb" onclick="tab('bal')" data-tab="bal">◈ Balance por Local</button>
+  <button class="nb" onclick="tab('res')" data-tab="res">📊 Resumen</button>
+  <button class="nb" onclick="tab('exp')" data-tab="exp">↓ Exportar</button>
+</nav></div>
 
 <main>
-
-<!-- ══ INGRESOS ══ -->
-<div class="tab active" id="tab-ingresos">
-  <div class="sh"><h2>Registrar Ingreso</h2><p>Selecciona el negocio y registra los ingresos del día.</p></div>
-
-  <div id="neg-sel-ing" class="neg-grid"></div>
-
-  <div class="card" id="form-ing-card">
-    <div class="card-title">📋 Detalle del día</div>
-    <div class="fg fg-3" style="margin-bottom:14px">
-      <div class="fl"><label>Fecha</label><input type="date" id="i-fecha"></div>
-      <div class="fl"><label>Negocio</label><input type="text" id="i-negocio" readonly style="color:var(--gold);font-weight:700"></div>
-      <div class="fl" id="i-personas-wrap"><label id="i-personas-label">Habitaciones / Personas</label><input type="number" id="i-personas" placeholder="0" min="0"></div>
-    </div>
-
-    <!-- Ingresos por tipo -->
-    <div class="ingreso-section">
-      <div class="is-title">💵 Efectivo</div>
-      <div class="ingreso-cols">
-        <div class="fl"><label>Monto bruto (S/.)</label><input type="number" id="i-ef-bruto" placeholder="0.00" step="0.01" oninput="calcEfectivo()"></div>
-        <div class="fl">
-          <label>Pagos en caja ese día (S/.)</label>
-          <input type="number" id="i-ef-gastos" placeholder="0.00" step="0.01" oninput="calcEfectivo()">
-          <span style="font-size:10px;color:var(--text3);margin-top:3px">Solo para calcular efectivo real. Registra el detalle en "Registrar Gasto".</span>
-        </div>
-        <div class="fl"><label>Efectivo real en caja (S/.)</label><input type="number" id="i-ef-real" placeholder="0.00" step="0.01" style="color:var(--efectivo);font-weight:700"></div>
-      </div>
-    </div>
-
-    <div class="ingreso-section">
-      <div class="is-title">💳 POS (Tarjeta)</div>
-      <div class="ingreso-cols">
-        <div class="fl"><label>Monto bruto (S/.)</label><input type="number" id="i-pos-bruto" placeholder="0.00" step="0.01" oninput="calcPOS()"></div>
-        <div class="fl"><label>Comisión banco (0.5%)</label><input type="number" id="i-pos-com" placeholder="0.00" readonly style="color:var(--yape)"></div>
-        <div class="fl"><label>Ingreso real POS (S/.)</label><input type="number" id="i-pos-real" placeholder="0.00" readonly style="color:var(--pos);font-weight:700"></div>
-      </div>
-      <div class="comision-note">⚡ Se descuenta automáticamente 0.5% de comisión bancaria</div>
-    </div>
-
-    <div class="ingreso-section">
-      <div class="is-title">📱 Yape / Plin</div>
-      <div class="ingreso-cols">
-        <div class="fl"><label>Monto bruto (S/.)</label><input type="number" id="i-yape-bruto" placeholder="0.00" step="0.01" oninput="calcYape()"></div>
-        <div class="fl"><label>Comisión (0.5%)</label><input type="number" id="i-yape-com" placeholder="0.00" readonly style="color:var(--yape)"></div>
-        <div class="fl"><label>Ingreso real Yape (S/.)</label><input type="number" id="i-yape-real" placeholder="0.00" readonly style="color:var(--yape);font-weight:700"></div>
-      </div>
-      <div class="comision-note">⚡ Se descuenta automáticamente 0.5% de comisión</div>
-    </div>
-
-    <div class="ingreso-section" id="bodega-section">
-      <div class="is-title">🏪 Tienda / Bodega <span style="font-size:10px;color:var(--text3);font-weight:400">(solo Thiana, Wellcome, Glamour)</span></div>
-      <div class="ingreso-cols">
-        <div class="fl"><label>Venta bruta bodega (S/.)</label><input type="number" id="i-bodega" placeholder="0.00" step="0.01"></div>
-        <div class="fl"><label>Efectivo bodega</label><input type="number" id="i-bodega-ef" placeholder="0.00" step="0.01"></div>
-        <div class="fl"><label>POS/Yape bodega</label><input type="number" id="i-bodega-pos" placeholder="0.00" step="0.01"></div>
-      </div>
-    </div>
-
-    <div class="ingreso-section" style="background:var(--bg);border-color:var(--gold);border-width:1px">
-      <div class="is-title" style="color:var(--gold)">✦ RESUMEN DEL DÍA</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px">
-        <div class="fl"><label>Ingreso bruto (servicio)</label><input type="number" id="i-total-bruto" readonly style="color:var(--text);font-weight:700"></div>
-        <div class="fl"><label>Comisiones bancarias</label><input type="number" id="i-total-com" readonly style="color:#f87171"></div>
-        <div class="fl"><label>✦ Ingreso real (servicio)</label><input type="number" id="i-total-real" readonly style="color:var(--gold);font-size:15px;font-weight:700"></div>
-        <div class="fl"><label>🏪 Bodega (separado)</label><input type="number" id="i-total-bodega" readonly style="color:#48c9b0;font-size:15px;font-weight:700" placeholder="0.00"></div>
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:8px">⚡ Bodega se contabiliza por separado y no se suma al ingreso por servicio.</div>
-    </div>
-
-    <div class="fl" style="margin-top:12px"><label>Observaciones</label><input type="text" id="i-obs" placeholder="Notas del día..."></div>
-    <div class="btn-row">
-      <button class="btn btn-gold" onclick="guardarIngreso()">✦ Guardar Ingreso</button>
-      <button class="btn btn-ghost" onclick="limpiarIng()">↺ Limpiar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ GASTOS ══ -->
-<div class="tab" id="tab-gastos">
-  <div class="sh"><h2>Registrar Gasto</h2><p>Registra los gastos diarios de cada local.</p></div>
-
-  <div id="neg-sel-gas" class="neg-grid"></div>
-
+<!-- INGRESOS -->
+<div class="tab active" id="tab-ing">
+  <div class="sh"><h2>Registrar Ingreso Diario</h2>
+  <p>Incluye los gastos pagados desde caja en el detalle. Los gastos con tarjeta/transferencia van en "Gastos Extra".</p></div>
+  <div id="neg-ing" class="neg-grid"></div>
   <div class="card">
-    <div class="card-title">📋 Detalle del gasto</div>
-    <div class="fg fg-4" style="margin-bottom:14px">
-      <div class="fl"><label>Fecha</label><input type="date" id="g-fecha"></div>
-      <div class="fl"><label>Negocio</label><input type="text" id="g-negocio" readonly style="color:var(--gold);font-weight:700"></div>
-      <div class="fl">
-        <label>Categoría</label>
-        <select id="g-cat">
-          <option value="">— Seleccionar —</option>
-          <option>Personal</option><option>Materiales</option><option>Insumos</option>
-          <option>Movilidad</option><option>Gas</option><option>Devolución</option>
-          <option>José (propietario)</option><option>Implementos / Bodega</option>
-          <option>Gas cocina</option><option>Insumos cocina</option><option>Fruta</option>
-          <option>Alitas</option><option>Hierbas sauna</option><option>Masajista</option>
-          <option>Gas sauna</option><option>Mantenimiento</option><option>Servicios</option>
-          <option>Otro</option>
-        </select>
-      </div>
-      <div class="fl"><label>Categoría personalizada</label><input type="text" id="g-cat-custom" placeholder="O escribe una nueva..."></div>
+    <div class="ct">Datos del día</div>
+    <div class="fg fg3" style="margin-bottom:14px">
+      <div class="fl"><label>Fecha</label><input type="date" id="i-f"></div>
+      <div class="fl"><label>Negocio</label><input type="text" id="i-n" readonly style="color:var(--gold);font-weight:700"></div>
+      <div class="fl" id="i-pw"><label id="i-pl">Habitaciones</label><input type="number" id="i-p" placeholder="0" min="0"></div>
     </div>
-    <div class="fg fg-3">
-      <div class="fl"><label>Descripción</label><input type="text" id="g-desc" placeholder="Detalle del gasto..."></div>
-      <div class="fl"><label>Monto (S/.)</label><input type="number" id="g-monto" placeholder="0.00" step="0.01"></div>
-      <div class="fl">
-        <label>Pagado desde</label>
-        <select id="g-origen">
-          <option value="caja_propia">Caja propia</option>
-          <option value="caja_thiana">Caja Thiana (para Sauna)</option>
-          <option value="tarjeta">Tarjeta</option>
-          <option value="transferencia">Transferencia</option>
-        </select>
+    <div class="sec">
+      <div class="sec-t">💵 Efectivo</div>
+      <div class="fg fg3">
+        <div class="fl"><label>Ingreso bruto (S/.)</label><input type="number" id="i-eb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Gastos pagados en caja (S/.)</label><input type="number" id="i-eg" placeholder="0.00" step="0.01" oninput="calc()"><span class="note">Se detallan abajo y se restan del efectivo</span></div>
+        <div class="fl"><label>Efectivo real en caja (S/.)</label><input type="number" id="i-er" placeholder="0.00" readonly style="color:#4ade80;font-weight:700"></div>
+      </div>
+      <div style="margin-top:12px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:6px">Detalle gastos en caja (pie de página)</div>
+        <table class="gd-t"><thead><tr><th style="width:110px">Categoría</th><th>Descripción</th><th style="width:100px">Monto S/.</th><th style="width:28px"></th></tr></thead>
+        <tbody id="gd-body"></tbody></table>
+        <button class="add-btn" onclick="addFila()">+ Agregar línea de gasto</button>
       </div>
     </div>
-    <div class="fl" style="margin-top:12px"><label>Observaciones</label><input type="text" id="g-obs" placeholder="Opcional..."></div>
+    <div class="sec">
+      <div class="sec-t">💳 POS / Tarjeta</div>
+      <div class="fg fg3">
+        <div class="fl"><label>Ingreso bruto POS (S/.)</label><input type="number" id="i-pb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Comisión banco 5%</label><input type="number" id="i-pc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 5%</span></div>
+        <div class="fl"><label>Ingreso real POS (S/.)</label><input type="number" id="i-pr" placeholder="0.00" readonly style="color:var(--pos);font-weight:700"></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-t">📱 Yape / Plin</div>
+      <div class="fg fg3">
+        <div class="fl"><label>Ingreso bruto Yape (S/.)</label><input type="number" id="i-yb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Comisión 5%</label><input type="number" id="i-yc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 5%</span></div>
+        <div class="fl"><label>Ingreso real Yape (S/.)</label><input type="number" id="i-yr" placeholder="0.00" readonly style="color:var(--yape);font-weight:700"></div>
+      </div>
+    </div>
+    <div class="sec" id="bod-sec">
+      <div class="sec-t">🏪 Bodega / Tienda <span style="font-size:10px;color:var(--text3);font-weight:400">(Thiana · Wellcome · Glamour)</span></div>
+      <div class="fg fg3">
+        <div class="fl"><label>Venta bruta bodega (S/.)</label><input type="number" id="i-bb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Efectivo bodega</label><input type="number" id="i-bef" placeholder="0.00" step="0.01"></div>
+        <div class="fl"><label>POS/Yape bodega</label><input type="number" id="i-bpo" placeholder="0.00" step="0.01"></div>
+      </div>
+      <div class="note" style="margin-top:6px">Bodega se contabiliza por separado, no se suma al ingreso por servicio.</div>
+    </div>
+    <div class="resbox">
+      <div class="rb-t">✦ Resumen del día</div>
+      <div class="rb-g">
+        <div class="rb-i"><div class="rb-l">Ingreso bruto total</div><div class="rb-v" id="r-b" style="color:var(--text)">S/. 0.00</div><div class="rb-s">Ef + POS + Yape</div></div>
+        <div class="rb-i"><div class="rb-l">Comisiones 5%</div><div class="rb-v" id="r-c" style="color:#f87171">S/. 0.00</div><div class="rb-s">POS + Yape</div></div>
+        <div class="rb-i"><div class="rb-l">Gastos en caja</div><div class="rb-v" id="r-g" style="color:#f87171">S/. 0.00</div><div class="rb-s">Del efectivo</div></div>
+        <div class="rb-i"><div class="rb-l">✦ Ingreso neto servicio</div><div class="rb-v" id="r-n" style="color:var(--gold)">S/. 0.00</div><div class="rb-s">Sin gastos caja</div></div>
+        <div class="rb-i"><div class="rb-l">🏪 Bodega</div><div class="rb-v" id="r-bd" style="color:#48c9b0">S/. 0.00</div><div class="rb-s">Independiente</div></div>
+      </div>
+    </div>
+    <div class="fl" style="margin-top:12px"><label>Observaciones</label><input type="text" id="i-ob" placeholder="Notas del día..."></div>
     <div class="btn-row">
-      <button class="btn btn-gold" onclick="guardarGasto()">✦ Guardar Gasto</button>
-      <button class="btn btn-ghost" onclick="limpiarGas()">↺ Limpiar</button>
-    </div>
-  </div>
-
-  <!-- Últimos gastos del día -->
-  <div style="margin-top:20px">
-    <div class="card-title" style="margin-bottom:12px">Últimos gastos registrados</div>
-    <div class="tbl-wrap">
-      <table><thead><tr><th>Fecha</th><th>Negocio</th><th>Categoría</th><th>Descripción</th><th>Origen</th><th style="text-align:right">Monto</th><th></th></tr></thead>
-      <tbody id="recent-gas"></tbody></table>
+      <button class="btn btn-g" onclick="guardarIng()">✦ Guardar Ingreso</button>
+      <button class="btn btn-s" onclick="limpiarIng()">↺ Limpiar</button>
     </div>
   </div>
 </div>
 
-<!-- ══ HISTORIAL ══ -->
-<div class="tab" id="tab-historial">
-  <div class="sh"><h2>Historial</h2><p>Todos los registros de ingresos y gastos.</p></div>
-  <div class="month-bar">
-    <select id="hist-mes" onchange="renderHistorial()"><option value="">Todos los meses</option></select>
-    <select id="hist-neg" onchange="renderHistorial()"><option value="">Todos los negocios</option></select>
-    <select id="hist-tipo" onchange="renderHistorial()">
-      <option value="">Todos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option>
-    </select>
-    <input class="search" id="hist-q" placeholder="🔍 Buscar..." oninput="renderHistorial()">
+<!-- GASTOS EXTRA -->
+<div class="tab" id="tab-gas">
+  <div class="sh"><h2>Gastos Extra</h2>
+  <p>Solo gastos con tarjeta, transferencia u otro medio externo. Los gastos en efectivo del día ya los registraste en el ingreso.</p></div>
+  <div id="neg-gas" class="neg-grid"></div>
+  <div class="card">
+    <div class="ct">Detalle del gasto extra</div>
+    <div class="fg fg4" style="margin-bottom:12px">
+      <div class="fl"><label>Fecha</label><input type="date" id="g-f"></div>
+      <div class="fl"><label>Negocio</label><input type="text" id="g-n" readonly style="color:var(--gold);font-weight:700"></div>
+      <div class="fl"><label>Categoría</label>
+        <select id="g-c"><option value="">— Seleccionar —</option>
+          <option>Personal / Planilla</option><option>Materiales</option><option>Servicios públicos</option>
+          <option>Mantenimiento</option><option>Publicidad</option><option>Insumos</option>
+          <option>Movilidad</option><option>Gas</option><option>Impuestos / Sunat</option>
+          <option>Mensualidad</option><option>Remodelación</option><option>Limpieza</option>
+          <option>Implementos</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="fl"><label>Cat. personalizada</label><input type="text" id="g-cc" placeholder="O escribe una nueva..."></div>
+    </div>
+    <div class="fg fg3">
+      <div class="fl"><label>Descripción</label><input type="text" id="g-d" placeholder="Detalle del gasto..."></div>
+      <div class="fl"><label>Monto (S/.)</label><input type="number" id="g-m" placeholder="0.00" step="0.01"></div>
+      <div class="fl"><label>Medio de pago</label>
+        <select id="g-med"><option>Tarjeta BCP</option><option>Tarjeta BBVA</option><option>Transferencia</option><option>Otro</option></select>
+      </div>
+    </div>
+    <div id="sauna-opt" style="display:none;margin-top:10px;padding:10px;background:var(--s2);border-radius:var(--r2)">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="g-st" style="width:auto">
+        <span>Gasto del Sauna pagado desde <b style="color:var(--gold)">caja Thiana</b> — aparecerá en balance de Thiana con etiqueta Sauna</span>
+      </label>
+    </div>
+    <div class="fl" style="margin-top:10px"><label>Observaciones</label><input type="text" id="g-ob" placeholder="Opcional..."></div>
+    <div class="btn-row">
+      <button class="btn btn-g" onclick="guardarGas()">✦ Guardar</button>
+      <button class="btn btn-s" onclick="limpiarGas()">↺ Limpiar</button>
+    </div>
   </div>
-  <div class="tbl-wrap">
-    <table><thead><tr><th>Fecha</th><th>Negocio</th><th>Tipo</th><th>Detalle</th><th style="text-align:right">Efectivo real</th><th style="text-align:right">POS real</th><th style="text-align:right">Yape real</th><th style="text-align:right">Bodega</th><th style="text-align:right">Total</th><th></th></tr></thead>
-    <tbody id="hist-tbody"></tbody></table>
-  </div>
+  <div class="ct" style="margin-bottom:10px">Últimos gastos extra</div>
+  <div class="tw"><table><thead><tr><th>Fecha</th><th>Negocio</th><th>Categoría</th><th>Descripción</th><th>Medio</th><th style="text-align:right">Monto</th><th></th></tr></thead>
+  <tbody id="rec-g"></tbody></table></div>
 </div>
 
-<!-- ══ BALANCE POR LOCAL ══ -->
-<div class="tab" id="tab-balance">
-  <div class="sh"><h2>Balance por Local</h2><p>Efectivo en caja, ingresos reales y gastos por negocio.</p></div>
-  <div class="month-bar">
-    <select id="bal-mes" onchange="renderBalance()"><option value="">Mes actual</option></select>
+<!-- HISTORIAL -->
+<div class="tab" id="tab-hist">
+  <div class="sh"><h2>Historial</h2><p>Todos los registros.</p></div>
+  <div class="mb">
+    <select id="h-me" onchange="renderHist()"><option value="">Todos los meses</option></select>
+    <select id="h-ne" onchange="renderHist()"><option value="">Todos los negocios</option></select>
+    <select id="h-ti" onchange="renderHist()"><option value="">Todos</option><option value="i">Ingresos</option><option value="g">Gastos extra</option></select>
+    <input class="srch" id="h-q" placeholder="🔍 Buscar..." oninput="renderHist()">
   </div>
-  <div class="balance-section" id="balance-cards"></div>
+  <div class="tw"><table><thead><tr><th>Fecha</th><th>Negocio</th><th>Tipo</th><th>Detalle</th><th style="text-align:right">Ef.Real</th><th style="text-align:right">POS Real</th><th style="text-align:right">Yape Real</th><th style="text-align:right">Bodega</th><th style="text-align:right">Gs.Caja</th><th style="text-align:right">Neto</th><th></th></tr></thead>
+  <tbody id="h-tb"></tbody></table></div>
 </div>
 
-<!-- ══ RESUMEN GENERAL ══ -->
-<div class="tab" id="tab-resumen">
+<!-- BALANCE -->
+<div class="tab" id="tab-bal">
+  <div class="sh"><h2>Balance por Local</h2><p>Bruto, neto, gastos y efectivo en caja por negocio.</p></div>
+  <div class="mb"><select id="b-me" onchange="renderBal()"><option value="">Todos los meses</option></select></div>
+  <div class="bal-grid" id="bal-c"></div>
+</div>
+
+<!-- RESUMEN -->
+<div class="tab" id="tab-res">
   <div class="sh"><h2>Resumen General</h2><p>Vista consolidada de todos los negocios.</p></div>
-  <div class="month-bar">
-    <select id="res-mes" onchange="renderResumen()"><option value="">Mes actual</option></select>
-  </div>
-  <div class="stats" id="res-stats"></div>
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-title">Ingresos por negocio</div>
-    <div class="tbl-wrap"><table class="res-table" id="res-ing-table"></table></div>
-  </div>
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-title">Gastos por negocio y categoría</div>
-    <div class="tbl-wrap"><table class="res-table" id="res-gas-table"></table></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Balance consolidado</div>
-    <div class="tbl-wrap"><table class="res-table" id="res-bal-table"></table></div>
-  </div>
+  <div class="mb"><select id="r-me" onchange="renderRes()"><option value="">Todos los meses</option></select></div>
+  <div class="stats" id="r-stats"></div>
+  <div class="card" style="margin-bottom:16px"><div class="ct">Ingresos — bruto y neto por negocio</div><div class="tw"><table class="rt" id="r-ing"></table></div></div>
+  <div class="card" style="margin-bottom:16px"><div class="ct">Gastos extra por categoría</div><div class="tw"><table class="rt" id="r-gas"></table></div></div>
+  <div class="card"><div class="ct">Balance consolidado</div><div class="tw"><table class="rt" id="r-bal"></table></div></div>
 </div>
 
-<!-- ══ EXPORTAR ══ -->
-<div class="tab" id="tab-exportar">
-  <div class="sh"><h2>Exportar</h2><p>Descarga el Excel completo con todas las hojas organizadas.</p></div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+<!-- EXPORTAR -->
+<div class="tab" id="tab-exp">
+  <div class="sh"><h2>Exportar</h2><p>Descarga el Excel organizado.</p></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
     <div class="card">
-      <div class="card-title">📊 Excel Completo</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Genera el archivo con hojas por cada negocio (ingresos + gastos diarios) más resumen general y balance consolidado.</p>
-      <div class="month-bar" style="margin-bottom:12px">
-        <select id="exp-mes"><option value="">Todos los meses</option></select>
-      </div>
-      <button class="btn btn-gold" onclick="exportarExcel()">↓ Descargar Excel</button>
+      <div class="ct">📊 Excel Completo</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Genera hojas por negocio con ingresos diarios (bruto/neto), gastos de caja detallados, gastos extra y resumen consolidado.</p>
+      <div class="mb" style="margin-bottom:10px"><select id="e-me"><option value="">Todos los meses</option></select></div>
+      <button class="btn btn-g" onclick="exportar()">↓ Descargar Excel</button>
     </div>
     <div class="card">
-      <div class="card-title">🗑 Gestión de datos</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Los datos se guardan permanentemente en este navegador. Borra todo si deseas empezar de cero.</p>
-      <button class="btn btn-danger" onclick="abrirModal()">⚠ Borrar todos los datos</button>
+      <div class="ct">🗑 Datos</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Exporta antes de borrar. Los datos se guardan en este navegador.</p>
+      <button class="btn btn-d" onclick="document.getElementById('modal').classList.add('open')">⚠ Borrar todo</button>
     </div>
   </div>
 </div>
-
 </main>
 
-<!-- MODAL -->
 <div class="modal-bg" id="modal">
-  <div class="modal">
-    <h3>⚠ Borrar todo</h3>
-    <p>Esta acción eliminará permanentemente todos los registros. No se puede deshacer.</p>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn btn-danger" onclick="borrarTodo()">Sí, borrar</button>
-    </div>
-  </div>
+  <div class="modal"><h3>⚠ Borrar todo</h3><p>Esta acción eliminará permanentemente todos los registros.</p>
+  <div class="modal-btns"><button class="btn btn-s" onclick="document.getElementById('modal').classList.remove('open')">Cancelar</button>
+  <button class="btn btn-d" onclick="borrarTodo()">Sí, borrar</button></div></div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ══ CONFIGURACIÓN DE NEGOCIOS ══
-const NEGOCIOS = [
-  {id:'thiana',   name:'Thiana',   icon:'🏨', color:'var(--thiana)',  tipo:'hotel',   personas:'Habitaciones', tienda:true},
-  {id:'wellcome', name:'Wellcome', icon:'🏩', color:'var(--wellcome)',tipo:'hotel',   personas:'Habitaciones', tienda:true},
-  {id:'glamour',  name:'Glamour',  icon:'✨', color:'var(--glamour)', tipo:'hotel',   personas:'Habitaciones', tienda:true},
-  {id:'vecos',    name:'Vecos',    icon:'🏢', color:'var(--vecos)',   tipo:'hotel',   personas:'Habitaciones', tienda:false},
-  {id:'sauna',    name:'Sauna Oro',icon:'🧖', color:'var(--sauna)',   tipo:'servicio',personas:'Personas',     tienda:false},
-  {id:'cocina',   name:'Cocina',   icon:'🍳', color:'var(--cocina)',  tipo:'cocina',  personas:null,           tienda:false},
-  {id:'masajes',  name:'Masajes',  icon:'💆', color:'var(--masajes)', tipo:'servicio',personas:'Personas',     tienda:false},
+const COM=0.05;
+const KEY='ij_v3';
+const NEGS=[
+  {id:'thiana',name:'Thiana',icon:'🏨',color:'var(--thiana)',tipo:'hotel',pers:'Habitaciones',tienda:true},
+  {id:'wellcome',name:'Wellcome',icon:'🏩',color:'var(--wellcome)',tipo:'hotel',pers:'Habitaciones',tienda:true},
+  {id:'glamour',name:'Glamour',icon:'✨',color:'var(--glamour)',tipo:'hotel',pers:'Habitaciones',tienda:true},
+  {id:'vecos',name:'Vecos',icon:'🏢',color:'var(--vecos)',tipo:'hotel',pers:'Habitaciones',tienda:false},
+  {id:'sauna',name:'Sauna Oro',icon:'🧖',color:'var(--sauna)',tipo:'servicio',pers:'Personas',tienda:false},
+  {id:'cocina',name:'Cocina',icon:'🍳',color:'var(--cocina)',tipo:'cocina',pers:null,tienda:false},
+  {id:'masajes',name:'Masajes',icon:'💆',color:'var(--masajes)',tipo:'servicio',pers:'Personas',tienda:false},
 ];
+const CATS_CAJA=['Personal','Materiales','Insumos','Gas','Gas cocina','Movilidad','Devolución','Hierbas sauna','Fruta','Alitas','Masajista','Implementos','Otro'];
+let db={ingresos:[],gastos:[]};
+let nI='thiana',nG='thiana',gFilas=[];
+function cargar(){try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r);}catch(e){}}
+function guardar(){localStorage.setItem(KEY,JSON.stringify(db));}
+const gN=id=>NEGS.find(n=>n.id===id)||NEGS[0];
+const S=n=>'S/. '+Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const N=n=>Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const F=f=>{if(!f)return'—';const d=new Date(f+'T00:00:00');return d.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});};
+const MK=f=>f?f.substring(0,7):'';
+const TD=()=>new Date().toISOString().split('T')[0];
+function pill(id){const n=gN(id);return`<span class="pill p-${id}">${n.icon} ${n.name}</span>`;}
+function v(id){return parseFloat(document.getElementById(id)?.value)||0;}
+function sv(id,val){const e=document.getElementById(id);if(e)e.value=Number(val).toFixed(2);}
 
-// ══ STORAGE ══
-const KEY = 'ij_sistema_v1';
-let db = {ingresos:[], gastos:[]};
-let negIngreso = 'thiana';
-let negGasto = 'thiana';
-
-function cargar(){
-  try{ const r=localStorage.getItem(KEY); if(r) db=JSON.parse(r); }catch(e){db={ingresos:[],gastos:[]};}
-}
-function guardar(){ localStorage.setItem(KEY, JSON.stringify(db)); }
-
-// ══ UTILS ══
-function fmt(n){ return n==null||n===''?'—':'S/. '+Number(n).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function fmtN(n){ return Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function fmtF(f){ if(!f)return'—'; const d=new Date(f+'T00:00:00'); return d.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'}); }
-function mesKey(fecha){ return fecha?fecha.substring(0,7):''; }
-function getNeg(id){ return NEGOCIOS.find(n=>n.id===id)||NEGOCIOS[0]; }
-function negPill(id){ const n=getNeg(id); return `<span class="pill p-${id}">${n.icon} ${n.name}</span>`; }
-function today(){ return new Date().toISOString().split('T')[0]; }
-
-// ══ CALCULOS COMISION ══
-const COM = 0.005; // 0.5%
-function calcEfectivo(){
-  const bruto = parseFloat(document.getElementById('i-ef-bruto').value)||0;
-  const gastos = parseFloat(document.getElementById('i-ef-gastos').value)||0;
-  document.getElementById('i-ef-real').value = (bruto-gastos).toFixed(2);
-  calcTotal();
-}
-function calcPOS(){
-  const bruto = parseFloat(document.getElementById('i-pos-bruto').value)||0;
-  const com = bruto*COM;
-  document.getElementById('i-pos-com').value = com.toFixed(2);
-  document.getElementById('i-pos-real').value = (bruto-com).toFixed(2);
-  calcTotal();
-}
-function calcYape(){
-  const bruto = parseFloat(document.getElementById('i-yape-bruto').value)||0;
-  const com = bruto*COM;
-  document.getElementById('i-yape-com').value = com.toFixed(2);
-  document.getElementById('i-yape-real').value = (bruto-com).toFixed(2);
-  calcTotal();
-}
-function calcTotal(){
-  const efReal  = parseFloat(document.getElementById('i-ef-real').value)||0;
-  const posReal = parseFloat(document.getElementById('i-pos-real').value)||0;
-  const yapeReal= parseFloat(document.getElementById('i-yape-real').value)||0;
-  const bodega  = parseFloat(document.getElementById('i-bodega').value)||0;
-  const efBruto = parseFloat(document.getElementById('i-ef-bruto').value)||0;
-  const posBruto= parseFloat(document.getElementById('i-pos-bruto').value)||0;
-  const yapeBruto=parseFloat(document.getElementById('i-yape-bruto').value)||0;
-  const posCom  = parseFloat(document.getElementById('i-pos-com').value)||0;
-  const yapeCom = parseFloat(document.getElementById('i-yape-com').value)||0;
-  const servicio = efReal+posReal+yapeReal;
-  document.getElementById('i-total-bruto').value = (efBruto+posBruto+yapeBruto).toFixed(2);
-  document.getElementById('i-total-com').value   = (posCom+yapeCom).toFixed(2);
-  document.getElementById('i-total-real').value  = servicio.toFixed(2);
-  // Actualizar bodega display
-  const bdEl = document.getElementById('i-total-bodega');
-  if(bdEl) bdEl.value = bodega.toFixed(2);
-}
-
-// ══ NEGOCIO SELECTORS ══
-function buildNegSelectors(){
-  ['ing','gas'].forEach(tipo=>{
-    const wrap = document.getElementById(`neg-sel-${tipo}`);
-    wrap.innerHTML = NEGOCIOS.map(n=>`
-      <div class="neg-btn ${(tipo==='ing'?negIngreso:negGasto)===n.id?'active':''}"
-           style="--active-color:${n.color}"
-           onclick="selNeg('${tipo}','${n.id}')">
-        <div class="neg-icon">${n.icon}</div>
-        <div class="neg-name" style="color:${n.color}">${n.name}</div>
-        <div class="neg-type">${n.tipo}</div>
+// SELECTORS
+function buildSels(){
+  ['ing','gas'].forEach(t=>{
+    const cur=t==='ing'?nI:nG;
+    document.getElementById(`neg-${t}`).innerHTML=NEGS.map(n=>`
+      <div class="nb2 ${cur===n.id?'active':''}" style="--ac:${n.color}" onclick="selN('${t}','${n.id}')">
+        <div class="ni">${n.icon}</div><div class="nn" style="color:${n.color}">${n.name}</div><div class="nt">${n.tipo}</div>
       </div>`).join('');
   });
 }
-
-function selNeg(tipo, id){
-  if(tipo==='ing'){ negIngreso=id; document.getElementById('i-negocio').value=getNeg(id).name; }
-  else{ negGasto=id; document.getElementById('g-negocio').value=getNeg(id).name; }
-  buildNegSelectors();
-  // Mostrar/ocultar secciones según negocio
-  if(tipo==='ing'){
-    const n=getNeg(id);
-    document.getElementById('bodega-section').style.display=n.tienda?'block':'none';
-    const pw=document.getElementById('i-personas-wrap');
-    if(n.personas){ pw.style.display='flex'; document.getElementById('i-personas-label').textContent=n.personas; }
-    else{ pw.style.display='none'; }
-    // Para sauna origen
-    if(id==='sauna'){
-      document.getElementById('g-origen') && (document.getElementById('g-origen').value='caja_thiana');
-    }
+function selN(t,id){
+  if(t==='ing'){
+    nI=id;document.getElementById('i-n').value=gN(id).name;
+    const n=gN(id);
+    document.getElementById('bod-sec').style.display=n.tienda?'block':'none';
+    const pw=document.getElementById('i-pw');
+    if(n.pers){pw.style.display='flex';document.getElementById('i-pl').textContent=n.pers;}
+    else pw.style.display='none';
+  } else {
+    nG=id;document.getElementById('g-n').value=gN(id).name;
+    document.getElementById('sauna-opt').style.display=id==='sauna'?'block':'none';
   }
+  buildSels();
 }
 
-// ══ GUARDAR INGRESO ══
-function guardarIngreso(){
-  const fecha = document.getElementById('i-fecha').value;
+// FILAS GASTOS CAJA
+function addFila(cat='',desc='',monto=''){
+  const id=Date.now()+Math.random();gFilas.push({id});
+  const tr=document.createElement('tr');tr.id='gf-'+id;
+  tr.innerHTML=`<td><select id="gc-${id}">${CATS_CAJA.map(c=>`<option ${c===cat?'selected':''}>${c}</option>`).join('')}</select></td>
+    <td><input type="text" id="gd-${id}" value="${desc}" placeholder="Descripción..."></td>
+    <td><input type="number" id="gm-${id}" value="${monto}" placeholder="0.00" step="0.01" oninput="calc()"></td>
+    <td><button class="rm" onclick="rmFila('${id}')">✕</button></td>`;
+  document.getElementById('gd-body').appendChild(tr);
+}
+function rmFila(id){gFilas=gFilas.filter(f=>f.id!=id);document.getElementById('gf-'+id)?.remove();calc();}
+function getFilas(){return gFilas.map(f=>({cat:document.getElementById('gc-'+f.id)?.value||'',desc:document.getElementById('gd-'+f.id)?.value||'',monto:parseFloat(document.getElementById('gm-'+f.id)?.value)||0})).filter(g=>g.monto>0);}
+
+// CALCULOS
+function calc(){
+  const eb=v('i-eb'),eg=v('i-eg'),pb=v('i-pb'),yb=v('i-yb'),bb=v('i-bb');
+  const pc=pb*COM,yc=yb*COM,pr=pb-pc,yr=yb-yc,er=eb-eg;
+  sv('i-pc',pc);sv('i-pr',pr);sv('i-yc',yc);sv('i-yr',yr);sv('i-er',er);
+  // Sincronizar total filas → campo gastos caja
+  const tf=getFilas().reduce((s,g)=>s+g.monto,0);
+  if(tf>0){document.getElementById('i-eg').value=tf.toFixed(2);}
+  const egR=v('i-eg');
+  const bruto=eb+pb+yb,com=pc+yc,neto=(eb-egR)+pr+yr;
+  document.getElementById('r-b').textContent=S(bruto);
+  document.getElementById('r-c').textContent=S(com);
+  document.getElementById('r-g').textContent=S(egR);
+  document.getElementById('r-n').textContent=S(neto);
+  document.getElementById('r-bd').textContent=S(bb);
+}
+
+// GUARDAR INGRESO
+function guardarIng(){
+  const fecha=document.getElementById('i-f').value;
   if(!fecha) return toast('⚠ Ingresa la fecha',true);
-  const neg = negIngreso;
-  const n = getNeg(neg);
-  const personas = parseInt(document.getElementById('i-personas').value)||0;
-  const efBruto  = parseFloat(document.getElementById('i-ef-bruto').value)||0;
-  const efGastos = parseFloat(document.getElementById('i-ef-gastos').value)||0;
-  const efReal   = parseFloat(document.getElementById('i-ef-real').value)||0;
-  const posBruto = parseFloat(document.getElementById('i-pos-bruto').value)||0;
-  const posReal  = parseFloat(document.getElementById('i-pos-real').value)||0;
-  const posCom   = parseFloat(document.getElementById('i-pos-com').value)||0;
-  const yapeBruto= parseFloat(document.getElementById('i-yape-bruto').value)||0;
-  const yapeReal = parseFloat(document.getElementById('i-yape-real').value)||0;
-  const yapeCom  = parseFloat(document.getElementById('i-yape-com').value)||0;
-  const bodega   = parseFloat(document.getElementById('i-bodega').value)||0;
-  const bodegaEf = parseFloat(document.getElementById('i-bodega-ef').value)||0;
-  const bodegaPos= parseFloat(document.getElementById('i-bodega-pos').value)||0;
-  const totalServicio = efReal+posReal+yapeReal;
-  const totalReal = totalServicio + bodega;
-  if(totalReal<=0) return toast('⚠ Ingresa al menos un monto',true);
-  const obs = document.getElementById('i-obs').value;
-
-  db.ingresos.unshift({
-    id:Date.now()+Math.random(), fecha, negocio:neg, personas,
-    efBruto, efGastos, efReal,
-    posBruto, posReal, posCom,
-    yapeBruto, yapeReal, yapeCom,
-    bodega, bodegaEf, bodegaPos,
-    totalBruto:efBruto+posBruto+yapeBruto,
-    totalCom:posCom+yapeCom,
-    totalServicio,
-    totalReal, obs
-  });
-  guardar(); actualizarTodo(); limpiarIng();
-  toast(`✦ Ingreso de ${n.name} guardado`);
+  const eb=v('i-eb'),eg=v('i-eg'),er=v('i-er');
+  const pb=v('i-pb'),pc=v('i-pc'),pr=v('i-pr');
+  const yb=v('i-yb'),yc=v('i-yc'),yr=v('i-yr');
+  const bb=v('i-bb'),bef=v('i-bef'),bpo=v('i-bpo');
+  const pers=parseInt(document.getElementById('i-p').value)||0;
+  const obs=document.getElementById('i-ob').value;
+  const detalleGastos=getFilas();
+  if(eb+pb+yb+bb<=0) return toast('⚠ Ingresa al menos un monto',true);
+  const totalBruto=eb+pb+yb,totalCom=pc+yc,totalServicio=er+pr+yr;
+  db.ingresos.unshift({id:Date.now()+Math.random(),fecha,negocio:nI,pers,
+    eb,eg,er,pb,pc,pr,yb,yc,yr,
+    bodega:bb,bodegaEf:bef,bodegaPos:bpo,
+    totalBruto,totalCom,totalServicio,
+    detalleGastos,obs});
+  guardar();actualizarTodo();limpiarIng();
+  toast(`✦ Ingreso ${gN(nI).name} guardado`);
 }
-
 function limpiarIng(){
-  ['i-ef-bruto','i-ef-gastos','i-ef-real','i-pos-bruto','i-pos-com','i-pos-real',
-   'i-yape-bruto','i-yape-com','i-yape-real','i-bodega','i-bodega-ef','i-bodega-pos',
-   'i-total-bruto','i-total-com','i-total-real','i-personas','i-obs'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
-  document.getElementById('i-fecha').value=today();
+  ['i-eb','i-eg','i-er','i-pb','i-pc','i-pr','i-yb','i-yc','i-yr','i-bb','i-bef','i-bpo','i-p','i-ob'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('i-f').value=TD();
+  gFilas=[];document.getElementById('gd-body').innerHTML='';
+  ['r-b','r-c','r-g','r-n','r-bd'].forEach(id=>document.getElementById(id).textContent='S/. 0.00');
 }
 
-// ══ GUARDAR GASTO ══
-function guardarGasto(){
-  const fecha  = document.getElementById('g-fecha').value;
-  const monto  = parseFloat(document.getElementById('g-monto').value);
-  const desc   = document.getElementById('g-desc').value.trim();
-  const catSel = document.getElementById('g-cat').value;
-  const catCus = document.getElementById('g-cat-custom').value.trim();
-  const cat    = catCus||catSel;
-  const origen = document.getElementById('g-origen').value;
-  const obs    = document.getElementById('g-obs').value;
+// GUARDAR GASTO EXTRA
+function guardarGas(){
+  const fecha=document.getElementById('g-f').value;
+  const monto=parseFloat(document.getElementById('g-m').value);
+  const desc=document.getElementById('g-d').value.trim();
+  const catS=document.getElementById('g-c').value,catC=document.getElementById('g-cc').value.trim();
+  const cat=catC||catS;
+  const medio=document.getElementById('g-med').value;
+  const obs=document.getElementById('g-ob').value;
+  const st=document.getElementById('g-st')?.checked&&nG==='sauna';
   if(!fecha) return toast('⚠ Ingresa la fecha',true);
-  if(!monto||monto<=0) return toast('⚠ Ingresa un monto válido',true);
-  if(!cat) return toast('⚠ Selecciona o escribe una categoría',true);
-  if(!desc) return toast('⚠ Ingresa una descripción',true);
-
-  // Si el gasto es del Sauna pero pagado desde Thiana → se registra en Thiana con etiqueta Sauna
-  const negFinal = (negGasto==='sauna'&&origen==='caja_thiana') ? 'thiana' : negGasto;
-  const esSaunaEnThiana = negGasto==='sauna'&&origen==='caja_thiana';
-
-  db.gastos.unshift({
-    id:Date.now()+Math.random(), fecha, negocio:negFinal,
-    negocioReal: negGasto, esSaunaEnThiana,
-    cat, desc, monto, origen, obs
-  });
-  guardar(); actualizarTodo(); limpiarGas();
-  toast(`✦ Gasto guardado${esSaunaEnThiana?' (Sauna → caja Thiana)':''}`);
+  if(!monto||monto<=0) return toast('⚠ Monto inválido',true);
+  if(!cat) return toast('⚠ Selecciona categoría',true);
+  if(!desc) return toast('⚠ Ingresa descripción',true);
+  db.gastos.unshift({id:Date.now()+Math.random(),fecha,negocio:st?'thiana':nG,negocioReal:nG,esSaunaThiana:st,cat,desc,monto,medio,obs});
+  guardar();actualizarTodo();limpiarGas();
+  toast(`✦ Gasto guardado${st?' (Sauna → Thiana)':''}`);
 }
-
 function limpiarGas(){
-  ['g-desc','g-monto','g-obs','g-cat-custom'].forEach(id=>{ document.getElementById(id).value=''; });
-  document.getElementById('g-cat').value='';
-  document.getElementById('g-origen').value='caja_propia';
-  document.getElementById('g-fecha').value=today();
+  ['g-d','g-m','g-ob','g-cc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('g-c').value='';
+  document.getElementById('g-med').value='Tarjeta BCP';
+  document.getElementById('g-f').value=TD();
+  const cb=document.getElementById('g-st');if(cb)cb.checked=false;
 }
 
-// ══ RENDER RECIENTES ══
-function renderRecentGastos(){
-  const tbody=document.getElementById('recent-gas');
+// RENDER RECIENTES
+function renderRec(){
+  const tb=document.getElementById('rec-g');
   const d=db.gastos.slice(0,10);
-  if(!d.length){ tbody.innerHTML=`<tr><td colspan="7" class="empty">Sin gastos aún</td></tr>`; return; }
-  tbody.innerHTML=d.map(g=>`<tr>
-    <td style="color:var(--text2);font-size:11px">${fmtF(g.fecha)}</td>
-    <td>${negPill(g.negocio)}${g.esSaunaEnThiana?` <span class="pill p-sauna-desde-thiana">🧖 Sauna</span>`:''}</td>
-    <td><span class="cat-tag">${g.cat}</span></td>
-    <td>${g.desc}</td>
-    <td style="font-size:11px;color:var(--text2)">${g.origen==='caja_thiana'?'Caja Thiana':g.origen==='tarjeta'?'Tarjeta':g.origen==='transferencia'?'Transferencia':'Caja propia'}</td>
-    <td style="text-align:right;color:#f87171;font-weight:700">${fmt(g.monto)}</td>
-    <td><button class="delbtn" onclick="delGasto('${g.id}')">🗑</button></td>
+  if(!d.length){tb.innerHTML=`<tr><td colspan="7" class="empty">Sin gastos extra</td></tr>`;return;}
+  tb.innerHTML=d.map(g=>`<tr>
+    <td style="color:var(--text2);font-size:11px">${F(g.fecha)}</td>
+    <td>${pill(g.negocio)}${g.esSaunaThiana?` <span class="pill p-st">🧖</span>`:''}</td>
+    <td><span class="cat">${g.cat}</span></td><td>${g.desc}</td>
+    <td style="font-size:11px;color:var(--text2)">${g.medio}</td>
+    <td style="text-align:right;color:#f87171;font-weight:700">${S(g.monto)}</td>
+    <td><button class="del" onclick="delG('${g.id}')">🗑</button></td>
   </tr>`).join('');
 }
 
-// ══ HISTORIAL ══
-function renderHistorial(){
-  const mes   = document.getElementById('hist-mes').value;
-  const neg   = document.getElementById('hist-neg').value;
-  const tipo  = document.getElementById('hist-tipo').value;
-  const q     = (document.getElementById('hist-q').value||'').toLowerCase();
-
+// HISTORIAL
+function renderHist(){
+  const mes=document.getElementById('h-me').value,neg=document.getElementById('h-ne').value;
+  const tipo=document.getElementById('h-ti').value,q=(document.getElementById('h-q').value||'').toLowerCase();
   let rows=[];
-  if(tipo!=='gasto'){
-    db.ingresos.forEach(r=>{
-      if(mes&&mesKey(r.fecha)!==mes) return;
-      if(neg&&r.negocio!==neg) return;
-      if(q&&!r.negocio.includes(q)&&!(r.obs||'').toLowerCase().includes(q)) return;
-      rows.push({...r,_tipo:'ingreso'});
-    });
-  }
-  if(tipo!=='ingreso'){
-    db.gastos.forEach(r=>{
-      if(mes&&mesKey(r.fecha)!==mes) return;
-      if(neg&&r.negocio!==neg) return;
-      if(q&&!r.desc.toLowerCase().includes(q)&&!r.cat.toLowerCase().includes(q)) return;
-      rows.push({...r,_tipo:'gasto'});
-    });
-  }
+  if(tipo!=='g') db.ingresos.forEach(r=>{
+    if(mes&&MK(r.fecha)!==mes)return;if(neg&&r.negocio!==neg)return;
+    if(q&&!(r.obs||'').toLowerCase().includes(q)&&!r.negocio.includes(q))return;
+    rows.push({...r,_t:'i'});
+  });
+  if(tipo!=='i') db.gastos.forEach(r=>{
+    if(mes&&MK(r.fecha)!==mes)return;if(neg&&r.negocio!==neg)return;
+    if(q&&!r.desc.toLowerCase().includes(q)&&!r.cat.toLowerCase().includes(q))return;
+    rows.push({...r,_t:'g'});
+  });
   rows.sort((a,b)=>b.fecha.localeCompare(a.fecha));
-
-  const tbody=document.getElementById('hist-tbody');
-  if(!rows.length){ tbody.innerHTML=`<tr><td colspan="10" class="empty">Sin registros</td></tr>`; return; }
-  tbody.innerHTML=rows.map(r=>{
-    if(r._tipo==='ingreso') return `<tr>
-      <td style="font-size:11px;color:var(--text2)">${fmtF(r.fecha)}</td>
-      <td>${negPill(r.negocio)}</td>
-      <td><span class="pill p-ingreso">Ingreso</span></td>
-      <td style="font-size:11px;color:var(--text2)">${r.personas?r.personas+' hab/pers':''} ${r.obs||''}</td>
-      <td style="text-align:right;color:var(--efectivo)">${r.efReal?fmtN(r.efReal):'—'}</td>
-      <td style="text-align:right;color:var(--pos)">${r.posReal?fmtN(r.posReal):'—'}</td>
-      <td style="text-align:right;color:var(--yape)">${r.yapeReal?fmtN(r.yapeReal):'—'}</td>
-      <td style="text-align:right">${r.bodega?fmtN(r.bodega):'—'}</td>
-      <td style="text-align:right;color:var(--gold);font-weight:700">${fmtN(r.totalReal)}</td>
-      <td><button class="delbtn" onclick="delIngreso('${r.id}')">🗑</button></td>
+  const tb=document.getElementById('h-tb');
+  if(!rows.length){tb.innerHTML=`<tr><td colspan="11" class="empty">Sin registros</td></tr>`;return;}
+  tb.innerHTML=rows.map(r=>{
+    if(r._t==='i') return `<tr>
+      <td style="font-size:11px;color:var(--text2)">${F(r.fecha)}</td><td>${pill(r.negocio)}</td>
+      <td><span class="pill p-ing">Ingreso</span></td>
+      <td style="font-size:11px">${r.pers?r.pers+' hab/pers ':''}${r.obs||''}</td>
+      <td style="text-align:right;color:#4ade80">${r.er?N(r.er):'—'}</td>
+      <td style="text-align:right;color:var(--pos)">${r.pr?N(r.pr):'—'}</td>
+      <td style="text-align:right;color:var(--yape)">${r.yr?N(r.yr):'—'}</td>
+      <td style="text-align:right;color:#48c9b0">${r.bodega?N(r.bodega):'—'}</td>
+      <td style="text-align:right;color:#f87171">${r.eg?'('+N(r.eg)+')':'—'}</td>
+      <td style="text-align:right;color:var(--gold);font-weight:700">${N(r.totalServicio)}</td>
+      <td><button class="del" onclick="delI('${r.id}')">🗑</button></td>
     </tr>`;
-    else return `<tr>
-      <td style="font-size:11px;color:var(--text2)">${fmtF(r.fecha)}</td>
-      <td>${negPill(r.negocio)}${r.esSaunaEnThiana?` <span class="pill p-sauna-desde-thiana">🧖</span>`:''}</td>
-      <td><span class="pill p-gasto">Gasto</span></td>
-      <td><span class="cat-tag">${r.cat}</span> ${r.desc}</td>
-      <td colspan="4" style="text-align:center;color:var(--text3);font-size:11px">${r.origen==='caja_thiana'?'desde caja Thiana':r.origen}</td>
-      <td style="text-align:right;color:#f87171;font-weight:700">(${fmtN(r.monto)})</td>
-      <td><button class="delbtn" onclick="delGasto('${r.id}')">🗑</button></td>
+    return `<tr>
+      <td style="font-size:11px;color:var(--text2)">${F(r.fecha)}</td>
+      <td>${pill(r.negocio)}${r.esSaunaThiana?` <span class="pill p-st">🧖</span>`:''}</td>
+      <td><span class="pill p-gas">Gasto extra</span></td>
+      <td><span class="cat">${r.cat}</span> ${r.desc}</td>
+      <td colspan="4" style="text-align:center;font-size:11px;color:var(--text3)">${r.medio}</td>
+      <td style="text-align:right;color:#f87171">(${N(r.monto)})</td>
+      <td style="text-align:right;color:#f87171;font-weight:700">(${N(r.monto)})</td>
+      <td><button class="del" onclick="delG('${r.id}')">🗑</button></td>
     </tr>`;
   }).join('');
 }
 
-// ══ BALANCE POR LOCAL ══
-function renderBalance(){
-  const mes = document.getElementById('bal-mes').value;
-  const wrap = document.getElementById('balance-cards');
+// BALANCE
+function renderBal(){
+  const mes=document.getElementById('b-me').value;
+  document.getElementById('bal-c').innerHTML=NEGS.map(n=>{
+    const ings=db.ingresos.filter(r=>r.negocio===n.id&&(!mes||MK(r.fecha)===mes)).sort((a,b)=>a.fecha>b.fecha?1:-1);
+    const gex=db.gastos.filter(g=>g.negocio===n.id&&(!mes||MK(g.fecha)===mes));
+    const sg=n.id==='thiana'?db.gastos.filter(g=>g.esSaunaThiana&&(!mes||MK(g.fecha)===mes)):[];
+    if(!ings.length&&!gex.length&&!sg.length) return '';
+    const eb=ings.reduce((s,r)=>s+(r.eb||0),0),pb=ings.reduce((s,r)=>s+(r.pb||0),0),yb=ings.reduce((s,r)=>s+(r.yb||0),0);
+    const er=ings.reduce((s,r)=>s+(r.er||0),0),pr=ings.reduce((s,r)=>s+(r.pr||0),0),yr=ings.reduce((s,r)=>s+(r.yr||0),0);
+    const eg=ings.reduce((s,r)=>s+(r.eg||0),0),com=ings.reduce((s,r)=>s+(r.totalCom||0),0);
+    const bod=ings.reduce((s,r)=>s+(r.bodega||0),0);
+    const servBruto=eb+pb+yb,servNeto=ings.reduce((s,r)=>s+(r.totalServicio||0),0);
+    const totGex=gex.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
+    const caja=er-sg.reduce((s,g)=>s+(g.monto||0),0);
+    const bal=servNeto-totGex;
 
-  const colors={thiana:'var(--thiana)',wellcome:'var(--wellcome)',glamour:'var(--glamour)',vecos:'var(--vecos)',sauna:'var(--sauna)',cocina:'var(--cocina)',masajes:'var(--masajes)'};
+    // Tabla detalle por día
+    const diaRows = ings.map(r=>{
+      const posYape = (r.pr||0)+(r.yr||0);
+      return `<tr>
+        <td style="color:var(--text2);font-size:11px;white-space:nowrap">${F(r.fecha)}</td>
+        ${n.pers?`<td style="text-align:center;font-size:11px;color:var(--text2)">${r.pers||'—'}</td>`:''}
+        <td style="text-align:right;color:#4ade80;font-size:11px">${r.er?N(r.er):'—'}</td>
+        <td style="text-align:right;color:var(--pos);font-size:11px">${(r.pr||0)>0?N(r.pr):'—'}</td>
+        <td style="text-align:right;color:var(--yape);font-size:11px">${(r.yr||0)>0?N(r.yr):'—'}</td>
+        <td style="text-align:right;font-weight:700;font-size:11px;color:var(--gold)">${N(r.totalServicio)}</td>
+        ${bod>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${r.bodega?N(r.bodega):'—'}</td>`:''}
+        <td style="text-align:right;font-size:11px;color:#f87171">${r.eg?'('+N(r.eg)+')':'—'}</td>
+      </tr>`;
+    }).join('');
 
-  wrap.innerHTML = NEGOCIOS.map(n=>{
-    const ings = db.ingresos.filter(r=>r.negocio===n.id&&(!mes||mesKey(r.fecha)===mes));
-    const gasts= db.gastos.filter(r=>r.negocio===n.id&&(!mes||mesKey(r.fecha)===mes));
-    const saunaGasts = n.id==='thiana'?db.gastos.filter(r=>r.esSaunaEnThiana&&(!mes||mesKey(r.fecha)===mes)):[];
+    const diaTotal=`<tr style="background:var(--s2);font-weight:700">
+      <td style="font-size:11px">TOTAL</td>
+      ${n.pers?'<td></td>':''}
+      <td style="text-align:right;font-size:11px;color:#4ade80">${N(er)}</td>
+      <td style="text-align:right;font-size:11px;color:var(--pos)">${N(pr)}</td>
+      <td style="text-align:right;font-size:11px;color:var(--yape)">${N(yr)}</td>
+      <td style="text-align:right;font-size:11px;color:var(--gold)">${N(servNeto)}</td>
+      ${bod>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${N(bod)}</td>`:''}
+      <td style="text-align:right;font-size:11px;color:#f87171">(${N(eg)})</td>
+    </tr>`;
 
-    const totalEfBruto = ings.reduce((s,r)=>s+(r.efBruto||0),0);
-    const totalEfGastos= ings.reduce((s,r)=>s+(r.efGastos||0),0);
-    const totalEfReal  = ings.reduce((s,r)=>s+(r.efReal||0),0);
-    const totalPos     = ings.reduce((s,r)=>s+(r.posReal||0),0);
-    const totalYape    = ings.reduce((s,r)=>s+(r.yapeReal||0),0);
-    const totalCom     = ings.reduce((s,r)=>s+(r.totalCom||0),0);
-    const totalBodega  = ings.reduce((s,r)=>s+(r.bodega||0),0);
-    const totalServicio= ings.reduce((s,r)=>s+(r.totalServicio||r.efReal+r.posReal+r.yapeReal||0),0);
-    const totalIng     = totalServicio; // Ingresos por servicio SIN bodega
-    const totalGas     = gasts.reduce((s,r)=>s+(r.monto||0),0);
-    const totalSaunaGas= saunaGasts.reduce((s,r)=>s+(r.monto||0),0);
-    const cajaFinal    = totalEfReal - totalGas - totalSaunaGas;
-    const balance      = totalServicio - totalGas - totalSaunaGas;
-    const balanceTotal = balance + totalBodega; // Balance incluyendo bodega
-
-    return `<div class="local-balance">
-      <div class="lb-header" style="border-left:3px solid ${n.color}">
-        <div class="lb-icon">${n.icon}</div>
-        <div>
-          <div class="lb-name" style="color:${n.color}">${n.name}</div>
-          <div style="font-size:10px;color:var(--text2)">${ings.length} días registrados</div>
-        </div>
+    return `<div class="bc">
+      <div class="bch" style="border-left:3px solid ${n.color}">
+        <div style="font-size:22px">${n.icon}</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:${n.color}">${n.name}</div>
+        <div style="font-size:10px;color:var(--text2)">${ings.length} días · ${gex.length+sg.length} gastos extra</div></div>
       </div>
-      <div class="lb-body">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);padding:4px 0 6px">INGRESOS POR SERVICIO</div>
-        <div class="lb-row"><span class="lbl">Efectivo bruto</span><span class="val">${fmt(totalEfBruto)}</span></div>
-        <div class="lb-row"><span class="lbl">Pagos en caja</span><span class="val val-neg">(${fmt(totalEfGastos)})</span></div>
-        <div class="lb-row"><span class="lbl">Efectivo real</span><span class="val val-pos">${fmt(totalEfReal)}</span></div>
-        <div class="lb-row"><span class="lbl">POS (neto)</span><span class="val val-pos">${fmt(totalPos)}</span></div>
-        <div class="lb-row"><span class="lbl">Yape/Plin (neto)</span><span class="val val-pos">${fmt(totalYape)}</span></div>
-        ${totalCom>0?`<div class="lb-row"><span class="lbl">Comisiones bancarias</span><span class="val val-neg">(${fmt(totalCom)})</span></div>`:''}
-        <div class="lb-row" style="border-top:1px solid var(--border2);margin-top:4px"><span class="lbl" style="color:var(--text);font-weight:600">Total ingreso servicio</span><span class="val val-pos" style="font-size:14px">${fmt(totalServicio)}</span></div>
-        ${totalBodega>0?`
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);padding:10px 0 6px;border-top:1px dashed var(--border)">🏪 BODEGA (INDEPENDIENTE)</div>
-        <div class="lb-row"><span class="lbl">Venta bodega</span><span class="val" style="color:#48c9b0;font-size:14px">${fmt(totalBodega)}</span></div>
-        `:''}
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);padding:10px 0 6px;border-top:1px dashed var(--border)">GASTOS</div>
-        <div class="lb-row"><span class="lbl">Gastos del local</span><span class="val val-neg">(${fmt(totalGas)})</span></div>
-        ${n.id==='thiana'&&totalSaunaGas>0?`<div class="lb-row"><span class="lbl">Gastos Sauna (desde Thiana)</span><span class="val val-neg">(${fmt(totalSaunaGas)})</span></div>`:''}
-        <div style="border-top:1px solid var(--border2);margin-top:6px;padding-top:8px">
-          <div class="lb-row total"><span>💵 Efectivo en caja</span><span class="${cajaFinal>=0?'val-pos':'val-neg'}">${fmt(cajaFinal)}</span></div>
-          <div class="lb-row total"><span>⚖ Balance (servicio)</span><span class="${balance>=0?'val-pos':'val-neg'}">${fmt(balance)}</span></div>
-          ${totalBodega>0?`<div class="lb-row total" style="color:#48c9b0"><span>⚖ Balance total c/bodega</span><span>${fmt(balanceTotal)}</span></div>`:''}
+      <div class="bcb">
+
+        ${ings.length?`
+        <div class="sdiv">DETALLE POR DÍA</div>
+        <div style="overflow-x:auto;margin-bottom:4px">
+          <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:400px">
+            <thead><tr style="border-bottom:1px solid var(--border)">
+              <th style="text-align:left;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2)">Fecha</th>
+              ${n.pers?`<th style="text-align:center;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2)">${n.pers.substring(0,3)}.</th>`:''}
+              <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#4ade80">Ef. Real</th>
+              <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--pos)">POS</th>
+              <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--yape)">Yape</th>
+              <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gold)">Neto</th>
+              ${bod>0?`<th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#48c9b0">Bodega</th>`:''}
+              <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#f87171">Gs.Caja</th>
+            </tr></thead>
+            <tbody>${diaRows}</tbody>
+            <tfoot>${diaTotal}</tfoot>
+          </table>
+        </div>`:''}
+
+        <div class="sdiv">RESUMEN DEL MES</div>
+        <div class="br"><span class="l">Efectivo bruto</span><span class="v">${S(eb)}</span></div>
+        <div class="br"><span class="l">POS bruto</span><span class="v">${S(pb)}</span></div>
+        <div class="br"><span class="l">Yape bruto</span><span class="v">${S(yb)}</span></div>
+        <div class="br"><span class="l2">Total bruto</span><span class="v" style="font-weight:700">${S(servBruto)}</span></div>
+        <div class="br"><span class="l">— Comisiones 5% (POS+Yape)</span><span class="v vn">(${S(com)})</span></div>
+        <div class="br"><span class="l">— Gastos pagados en caja</span><span class="v vn">(${S(eg)})</span></div>
+        <div class="br tot"><span class="l2">Ingreso neto servicio</span><span class="v vp">${S(servNeto)}</span></div>
+        ${bod>0?`<div class="sdiv">🏪 BODEGA (INDEPENDIENTE)</div><div class="br"><span class="l">Venta bodega</span><span class="v vb">${S(bod)}</span></div>`:''}
+        <div class="sdiv">GASTOS EXTRA (Tarjeta / Transferencia)</div>
+        ${gex.length?gex.map(g=>`<div class="br"><span class="l"><span class="cat">${g.cat}</span> ${g.desc}</span><span class="v vn">(${S(g.monto)})</span></div>`).join(''):`<div class="br"><span class="l" style="color:var(--text3)">Sin gastos extra</span></div>`}
+        ${n.id==='thiana'&&sg.length?`<div style="font-size:10px;color:var(--sauna);font-weight:700;margin-top:6px">🧖 Gastos Sauna (caja Thiana):</div>${sg.map(g=>`<div class="br"><span class="l">${g.cat}: ${g.desc}</span><span class="v vn">(${S(g.monto)})</span></div>`).join('')}`:''}
+        <div class="br" style="border-top:1px solid var(--border2);margin-top:4px;padding-top:6px">
+          <span class="l2">Total gastos extra</span><span class="v vn">(${S(totGex)})</span>
         </div>
+        <div class="sdiv">RESULTADO</div>
+        <div class="br"><span class="l">💵 Efectivo en caja</span><span class="v ${caja>=0?'vp':'vn'}">${S(caja)}</span></div>
+        <div class="br tot"><span>⚖ Balance neto</span><span class="${bal>=0?'vp':'vn'}">${S(bal)}</span></div>
+        ${bod>0?`<div class="br tot" style="color:#48c9b0"><span>⚖ Balance c/bodega</span><span>${S(bal+bod)}</span></div>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-// ══ RESUMEN GENERAL ══
-function renderResumen(){
-  const mes = document.getElementById('res-mes').value;
-  const ings  = db.ingresos.filter(r=>!mes||mesKey(r.fecha)===mes);
-  const gasts = db.gastos.filter(r=>!mes||mesKey(r.fecha)===mes);
+// RESUMEN
+function renderRes(){
+  const mes=document.getElementById('r-me').value;
+  const ings=db.ingresos.filter(r=>!mes||MK(r.fecha)===mes);
+  const gasts=db.gastos.filter(r=>!mes||MK(r.fecha)===mes);
+  const tBruto=ings.reduce((s,r)=>s+(r.totalBruto||0),0);
+  const tNeto=ings.reduce((s,r)=>s+(r.totalServicio||0),0);
+  const tCom=ings.reduce((s,r)=>s+(r.totalCom||0),0);
+  const tGCaja=ings.reduce((s,r)=>s+(r.eg||0),0);
+  const tBod=ings.reduce((s,r)=>s+(r.bodega||0),0);
+  const tGEx=gasts.reduce((s,g)=>s+(g.monto||0),0);
+  document.getElementById('r-stats').innerHTML=`
+    <div class="stat" style="--sc:var(--text2)"><div class="sl">Bruto Total</div><div class="sv">${S(tBruto)}</div><div class="ss">Antes de descuentos</div></div>
+    <div class="stat" style="--sc:var(--gold)"><div class="sl">Neto Servicio</div><div class="sv" style="color:var(--gold)">${S(tNeto)}</div><div class="ss">Después de com. y gs. caja</div></div>
+    <div class="stat" style="--sc:#48c9b0"><div class="sl">Bodega</div><div class="sv" style="color:#48c9b0">${S(tBod)}</div><div class="ss">Independiente</div></div>
+    <div class="stat" style="--sc:#f87171"><div class="sl">Comisiones 5%</div><div class="sv" style="color:#f87171">${S(tCom)}</div><div class="ss">POS + Yape</div></div>
+    <div class="stat" style="--sc:#f87171"><div class="sl">Gastos en Caja</div><div class="sv" style="color:#f87171">${S(tGCaja)}</div><div class="ss">Diarios del efectivo</div></div>
+    <div class="stat" style="--sc:#f87171"><div class="sl">Gastos Extra</div><div class="sv" style="color:#f87171">${S(tGEx)}</div><div class="ss">Tarjeta / transferencia</div></div>
+    <div class="stat" style="--sc:${tNeto-tGEx>=0?'#4ade80':'#f87171'}"><div class="sl">Balance Neto</div><div class="sv" style="color:${tNeto-tGEx>=0?'#4ade80':'#f87171'}">${S(tNeto-tGEx)}</div><div class="ss">Neto − Gastos extra</div></div>`;
 
-  const totIng    = ings.reduce((s,r)=>s+(r.totalServicio||((r.efReal||0)+(r.posReal||0)+(r.yapeReal||0))),0);
-  const totBodega = ings.reduce((s,r)=>s+(r.bodega||0),0);
-  const totGas  = gasts.reduce((s,r)=>s+(r.monto||0),0);
-  const totCom  = ings.reduce((s,r)=>s+(r.totalCom||0),0);
-  const totEf   = ings.reduce((s,r)=>s+(r.efReal||0),0);
-  const totPos  = ings.reduce((s,r)=>s+(r.posReal||0),0);
-  const totYape = ings.reduce((s,r)=>s+(r.yapeReal||0),0);
-
-  document.getElementById('res-stats').innerHTML=`
-    <div class="stat" style="--sc:var(--gold)"><div class="stat-label">Ingresos por Servicio</div><div class="stat-val" style="color:var(--gold)">${fmt(totIng)}</div><div class="stat-sub">${ings.length} días registrados</div></div>
-    <div class="stat" style="--sc:#48c9b0"><div class="stat-label">Ingresos Bodega</div><div class="stat-val" style="color:#48c9b0">${fmt(totBodega)}</div><div class="stat-sub">Thiana · Wellcome · Glamour</div></div>
-    <div class="stat" style="--sc:#f87171"><div class="stat-label">Total Gastos</div><div class="stat-val" style="color:#f87171">${fmt(totGas)}</div><div class="stat-sub">${gasts.length} registros</div></div>
-    <div class="stat" style="--sc:var(--efectivo)"><div class="stat-label">Balance (servicio)</div><div class="stat-val" style="color:${totIng-totGas>=0?'var(--efectivo)':'#f87171'}">${fmt(totIng-totGas)}</div><div class="stat-sub">Sin bodega</div></div>
-    <div class="stat" style="--sc:var(--efectivo)"><div class="stat-label">Efectivo Total</div><div class="stat-val" style="color:var(--efectivo)">${fmt(totEf)}</div></div>
-    <div class="stat" style="--sc:var(--pos)"><div class="stat-label">POS Total</div><div class="stat-val" style="color:var(--pos)">${fmt(totPos)}</div></div>
-    <div class="stat" style="--sc:var(--yape)"><div class="stat-label">Yape/Plin</div><div class="stat-val" style="color:var(--yape)">${fmt(totYape)}</div></div>
-    <div class="stat" style="--sc:#f87171"><div class="stat-label">Comisiones Bancarias</div><div class="stat-val" style="color:#f87171">${fmt(totCom)}</div><div class="stat-sub">POS + Yape 0.5%</div></div>
-  `;
-
-  // Tabla ingresos por negocio — bodega en columna separada, NO sumada al total servicio
-  let ingHTML=`<thead><tr><th>Negocio</th><th>Días</th><th>Efectivo real</th><th>POS neto</th><th>Yape neto</th><th>Comisiones</th><th>TOTAL SERVICIO</th><th>🏪 Bodega</th></tr></thead><tbody>`;
-  NEGOCIOS.forEach(n=>{
-    const d=ings.filter(r=>r.negocio===n.id);
-    if(!d.length) return;
-    const ef=d.reduce((s,r)=>s+(r.efReal||0),0);
-    const pos=d.reduce((s,r)=>s+(r.posReal||0),0);
-    const yape=d.reduce((s,r)=>s+(r.yapeReal||0),0);
-    const bod=d.reduce((s,r)=>s+(r.bodega||0),0);
-    const com=d.reduce((s,r)=>s+(r.totalCom||0),0);
-    const tot=d.reduce((s,r)=>s+(r.totalServicio||((r.efReal||0)+(r.posReal||0)+(r.yapeReal||0))),0);
-    ingHTML+=`<tr><td>${negPill(n.id)} ${n.name}</td><td style="text-align:right">${d.length}</td><td style="text-align:right;color:var(--efectivo)">${fmtN(ef)}</td><td style="text-align:right;color:var(--pos)">${fmtN(pos)}</td><td style="text-align:right;color:var(--yape)">${fmtN(yape)}</td><td style="text-align:right;color:#f87171">${com?'('+fmtN(com)+')':'—'}</td><td style="text-align:right;color:var(--gold);font-weight:700">${fmtN(tot)}</td><td style="text-align:right;color:#48c9b0;font-weight:600">${bod?fmtN(bod):'—'}</td></tr>`;
+  // Tabla ingresos bruto/neto
+  let h=`<thead><tr><th>Negocio</th><th>Días</th><th>Ef.Bruto</th><th>POS Bruto</th><th>Yape Bruto</th><th>BRUTO</th><th>Comisiones</th><th>Gs.Caja</th><th>NETO SERVICIO</th><th>🏪 Bodega</th></tr></thead><tbody>`;
+  NEGS.forEach(n=>{
+    const d=ings.filter(r=>r.negocio===n.id);if(!d.length)return;
+    const eb=d.reduce((s,r)=>s+(r.eb||0),0),pb=d.reduce((s,r)=>s+(r.pb||0),0),yb=d.reduce((s,r)=>s+(r.yb||0),0);
+    const bruto=eb+pb+yb,com=d.reduce((s,r)=>s+(r.totalCom||0),0),gc=d.reduce((s,r)=>s+(r.eg||0),0);
+    const neto=d.reduce((s,r)=>s+(r.totalServicio||0),0),bod=d.reduce((s,r)=>s+(r.bodega||0),0);
+    h+=`<tr><td>${pill(n.id)} ${n.name}</td><td style="text-align:right">${d.length}</td>
+      <td style="text-align:right">${N(eb)}</td><td style="text-align:right">${N(pb)}</td><td style="text-align:right">${N(yb)}</td>
+      <td style="text-align:right;font-weight:700">${N(bruto)}</td>
+      <td style="text-align:right;color:#f87171">(${N(com)})</td><td style="text-align:right;color:#f87171">(${N(gc)})</td>
+      <td style="text-align:right;color:var(--gold);font-weight:700">${N(neto)}</td>
+      <td style="text-align:right;color:#48c9b0">${bod?N(bod):'—'}</td></tr>`;
   });
-  ingHTML+=`<tr class="grand-total"><td>TOTAL</td><td style="text-align:right">${ings.length}</td><td style="text-align:right">${fmtN(totEf)}</td><td style="text-align:right">${fmtN(totPos)}</td><td style="text-align:right">${fmtN(totYape)}</td><td style="text-align:right">(${fmtN(totCom)})</td><td style="text-align:right;color:var(--gold)">${fmtN(totIng)}</td><td style="text-align:right;color:#48c9b0">${fmtN(totBodega)}</td></tr></tbody>`;
-  document.getElementById('res-ing-table').innerHTML=ingHTML;
+  h+=`<tr class="grd"><td>TOTAL</td><td style="text-align:right">${ings.length}</td>
+    <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.eb||0),0))}</td>
+    <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.pb||0),0))}</td>
+    <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.yb||0),0))}</td>
+    <td style="text-align:right">${N(tBruto)}</td><td style="text-align:right">(${N(tCom)})</td><td style="text-align:right">(${N(tGCaja)})</td>
+    <td style="text-align:right;color:var(--gold)">${N(tNeto)}</td><td style="text-align:right;color:#48c9b0">${N(tBod)}</td></tr></tbody>`;
+  document.getElementById('r-ing').innerHTML=h;
 
-  // Tabla gastos por negocio y categoría
-  const allCats=[...new Set(gasts.map(g=>g.cat))].sort();
-  let gasHTML=`<thead><tr><th>Negocio</th>${allCats.map(c=>`<th>${c}</th>`).join('')}<th>TOTAL</th></tr></thead><tbody>`;
-  NEGOCIOS.forEach(n=>{
-    const d=gasts.filter(g=>g.negocio===n.id);
-    if(!d.length) return;
+  // Gastos extra por categoría
+  const allC=[...new Set(gasts.map(g=>g.cat))].sort();
+  let g2=`<thead><tr><th>Negocio</th>${allC.map(c=>`<th>${c}</th>`).join('')}<th>TOTAL</th></tr></thead><tbody>`;
+  NEGS.forEach(n=>{
+    const d=gasts.filter(g=>g.negocio===n.id);if(!d.length)return;
     const tot=d.reduce((s,g)=>s+(g.monto||0),0);
-    gasHTML+=`<tr><td>${negPill(n.id)} ${n.name}</td>${allCats.map(c=>{
-      const v=d.filter(g=>g.cat===c).reduce((s,g)=>s+(g.monto||0),0);
-      return `<td style="text-align:right">${v?fmtN(v):'—'}</td>`;
-    }).join('')}<td style="text-align:right;color:#f87171;font-weight:700">${fmtN(tot)}</td></tr>`;
+    g2+=`<tr><td>${pill(n.id)} ${n.name}</td>${allC.map(c=>{const vv=d.filter(g=>g.cat===c).reduce((s,g)=>s+(g.monto||0),0);return`<td style="text-align:right">${vv?N(vv):'—'}</td>`;}).join('')}<td style="text-align:right;color:#f87171;font-weight:700">${N(tot)}</td></tr>`;
   });
-  gasHTML+=`<tr class="grand-total"><td>TOTAL</td>${allCats.map(c=>{
-    const v=gasts.filter(g=>g.cat===c).reduce((s,g)=>s+(g.monto||0),0);
-    return `<td style="text-align:right">${v?fmtN(v):'—'}</td>`;
-  }).join('')}<td style="text-align:right;color:#f87171">${fmtN(totGas)}</td></tr></tbody>`;
-  document.getElementById('res-gas-table').innerHTML=gasHTML;
+  g2+=`<tr class="grd"><td>TOTAL</td>${allC.map(c=>{const vv=gasts.filter(g=>g.cat===c).reduce((s,g)=>s+(g.monto||0),0);return`<td style="text-align:right">${vv?N(vv):'—'}</td>`;}).join('')}<td style="text-align:right;color:#f87171">${N(tGEx)}</td></tr></tbody>`;
+  document.getElementById('r-gas').innerHTML=g2;
 
-  // Balance consolidado
-  let balHTML=`<thead><tr><th>Negocio</th><th>Ingreso Servicio</th><th>🏪 Bodega</th><th>Gastos</th><th>Efectivo en caja</th><th>Balance Servicio</th><th>Balance c/Bodega</th></tr></thead><tbody>`;
-  NEGOCIOS.forEach(n=>{
-    const di=ings.filter(r=>r.negocio===n.id);
-    const dg=gasts.filter(g=>g.negocio===n.id);
-    const saunaG=n.id==='thiana'?gasts.filter(g=>g.esSaunaEnThiana):[];
-    if(!di.length&&!dg.length) return;
-    const totServ=di.reduce((s,r)=>s+(r.totalServicio||((r.efReal||0)+(r.posReal||0)+(r.yapeReal||0))),0);
-    const totBod=di.reduce((s,r)=>s+(r.bodega||0),0);
-    const totG=dg.reduce((s,g)=>s+(g.monto||0),0)+saunaG.reduce((s,g)=>s+(g.monto||0),0);
-    const caja=di.reduce((s,r)=>s+(r.efReal||0),0)-dg.reduce((s,g)=>s+(g.monto||0),0)-saunaG.reduce((s,g)=>s+(g.monto||0),0);
-    const balServ=totServ-totG;
-    const balTot=balServ+totBod;
-    balHTML+=`<tr>
-      <td>${negPill(n.id)} ${n.name}</td>
-      <td style="text-align:right;color:var(--efectivo)">${fmtN(totServ)}</td>
-      <td style="text-align:right;color:#48c9b0">${totBod?fmtN(totBod):'—'}</td>
-      <td style="text-align:right;color:#f87171">(${fmtN(totG)})</td>
-      <td style="text-align:right;color:${caja>=0?'var(--efectivo)':'#f87171'}">${fmtN(caja)}</td>
-      <td style="text-align:right;font-weight:700;color:${balServ>=0?'var(--gold)':'#f87171'}">${fmtN(balServ)}</td>
-      <td style="text-align:right;font-weight:700;color:${balTot>=0?'#48c9b0':'#f87171'}">${totBod?fmtN(balTot):'—'}</td>
-    </tr>`;
+  // Balance
+  let b=`<thead><tr><th>Negocio</th><th>Bruto</th><th>Neto Servicio</th><th>🏪 Bodega</th><th>Gs. Extra</th><th>Ef. en Caja</th><th>Balance</th></tr></thead><tbody>`;
+  NEGS.forEach(n=>{
+    const di=ings.filter(r=>r.negocio===n.id),dg=gasts.filter(g=>g.negocio===n.id);
+    const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
+    if(!di.length&&!dg.length)return;
+    const bruto=di.reduce((s,r)=>s+(r.totalBruto||0),0),neto=di.reduce((s,r)=>s+(r.totalServicio||0),0);
+    const bod=di.reduce((s,r)=>s+(r.bodega||0),0);
+    const gex=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
+    const caja=di.reduce((s,r)=>s+(r.er||0),0)-sg.reduce((s,g)=>s+(g.monto||0),0);
+    const bal=neto-gex;
+    b+=`<tr><td>${pill(n.id)} ${n.name}</td><td style="text-align:right">${N(bruto)}</td>
+      <td style="text-align:right;color:#4ade80">${N(neto)}</td><td style="text-align:right;color:#48c9b0">${bod?N(bod):'—'}</td>
+      <td style="text-align:right;color:#f87171">${gex?'('+N(gex)+')':'—'}</td>
+      <td style="text-align:right;color:${caja>=0?'#4ade80':'#f87171'}">${N(caja)}</td>
+      <td style="text-align:right;font-weight:700;color:${bal>=0?'var(--gold)':'#f87171'}">${N(bal)}</td></tr>`;
   });
-  balHTML+=`<tr class="grand-total"><td>TOTAL GENERAL</td><td style="text-align:right;color:var(--efectivo)">${fmtN(totIng)}</td><td style="text-align:right;color:#48c9b0">${fmtN(totBodega)}</td><td style="text-align:right;color:#f87171">(${fmtN(totGas)})</td><td style="text-align:right">—</td><td style="text-align:right;color:${totIng-totGas>=0?'var(--gold)':'#f87171'}">${fmtN(totIng-totGas)}</td><td style="text-align:right;color:#48c9b0">${fmtN(totIng-totGas+totBodega)}</td></tr></tbody>`;
-  document.getElementById('res-bal-table').innerHTML=balHTML;
+  b+=`<tr class="grd"><td>TOTAL</td><td style="text-align:right">${N(tBruto)}</td><td style="text-align:right;color:#4ade80">${N(tNeto)}</td>
+    <td style="text-align:right;color:#48c9b0">${N(tBod)}</td><td style="text-align:right;color:#f87171">(${N(tGEx)})</td>
+    <td style="text-align:right">—</td><td style="text-align:right;color:${tNeto-tGEx>=0?'var(--gold)':'#f87171'}">${N(tNeto-tGEx)}</td></tr></tbody>`;
+  document.getElementById('r-bal').innerHTML=b;
 }
 
-// ══ MESES EN SELECTORES ══
-function poblarMeses(){
-  const meses = [...new Set([
-    ...db.ingresos.map(r=>mesKey(r.fecha)),
-    ...db.gastos.map(r=>mesKey(r.fecha))
-  ])].filter(Boolean).sort().reverse();
-  const labels={'01':'Enero','02':'Febrero','03':'Marzo','04':'Abril','05':'Mayo','06':'Junio','07':'Julio','08':'Agosto','09':'Septiembre','10':'Octubre','11':'Noviembre','12':'Diciembre'};
-  const opts = meses.map(m=>{const[y,mo]=m.split('-');return`<option value="${m}">${labels[mo]||mo} ${y}</option>`;}).join('');
-  ['hist-mes','bal-mes','res-mes','exp-mes'].forEach(id=>{
-    const el=document.getElementById(id);
-    const prev=el.value;
-    el.innerHTML='<option value="">Todos los meses</option>'+opts;
-    if(prev) el.value=prev;
-  });
-  // Negocios en historial
-  const negOpts=NEGOCIOS.map(n=>`<option value="${n.id}">${n.icon} ${n.name}</option>`).join('');
-  document.getElementById('hist-neg').innerHTML='<option value="">Todos los negocios</option>'+negOpts;
-}
-
-// ══ HEADER STATS ══
-function updateHeader(){
-  const mes=today().substring(0,7);
-  const totIng=db.ingresos.filter(r=>mesKey(r.fecha)===mes).reduce((s,r)=>s+(r.totalReal||0),0);
-  const totGas=db.gastos.filter(r=>mesKey(r.fecha)===mes).reduce((s,r)=>s+(r.monto||0),0);
-  document.getElementById('hd-ing').textContent=fmt(totIng);
-  document.getElementById('hd-gas').textContent=fmt(totGas);
-  const bal=totIng-totGas;
-  const el=document.getElementById('hd-bal');
-  el.textContent=fmt(bal);
-  el.style.color=bal>=0?'var(--gold)':'#f87171';
-}
-
-// ══ DELETE ══
-function delIngreso(id){ db.ingresos=db.ingresos.filter(r=>String(r.id)!==String(id)); guardar(); actualizarTodo(); toast('Ingreso eliminado'); }
-function delGasto(id){ db.gastos=db.gastos.filter(r=>String(r.id)!==String(id)); guardar(); actualizarTodo(); toast('Gasto eliminado'); }
-
-// ══ EXPORTAR EXCEL ══
-function exportarExcel(){
-  const mes=document.getElementById('exp-mes').value;
-  const ings=db.ingresos.filter(r=>!mes||mesKey(r.fecha)===mes);
-  const gasts=db.gastos.filter(r=>!mes||mesKey(r.fecha)===mes);
-  if(!ings.length&&!gasts.length) return toast('⚠ No hay datos para exportar',true);
+// EXPORTAR
+function exportar(){
+  const mes=document.getElementById('e-me').value;
+  const ings=db.ingresos.filter(r=>!mes||MK(r.fecha)===mes);
+  const gasts=db.gastos.filter(r=>!mes||MK(r.fecha)===mes);
+  if(!ings.length&&!gasts.length) return toast('⚠ Sin datos',true);
   const wb=XLSX.utils.book_new();
-
-  // Hoja por negocio
-  NEGOCIOS.forEach(n=>{
-    const di=ings.filter(r=>r.negocio===n.id);
-    const dg=gasts.filter(g=>g.negocio===n.id);
-    const sgThiana=n.id==='thiana'?gasts.filter(g=>g.esSaunaEnThiana):[];
-    if(!di.length&&!dg.length&&!sgThiana.length) return;
-    const rows=[['=== INGRESOS ==='],['Fecha','Hab/Pers','Ef.Bruto','Ef.Gastos','Ef.Real','POS Bruto','POS Comisión','POS Real','Yape Bruto','Yape Comisión','Yape Real','Bodega','Total Real','Obs']];
-    di.sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(r=>rows.push([r.fecha,r.personas,r.efBruto,r.efGastos,r.efReal,r.posBruto,r.posCom,r.posReal,r.yapeBruto,r.yapeCom,r.yapeReal,r.bodega,r.totalReal,r.obs]));
-    rows.push(['TOTAL','',di.reduce((s,r)=>s+(r.efBruto||0),0),'',di.reduce((s,r)=>s+(r.efReal||0),0),di.reduce((s,r)=>s+(r.posBruto||0),0),di.reduce((s,r)=>s+(r.posCom||0),0),di.reduce((s,r)=>s+(r.posReal||0),0),'','',di.reduce((s,r)=>s+(r.yapeReal||0),0),di.reduce((s,r)=>s+(r.bodega||0),0),di.reduce((s,r)=>s+(r.totalReal||0),0)]);
-    rows.push([]);
-    rows.push(['=== GASTOS ===']);
-    rows.push(['Fecha','Categoría','Descripción','Monto','Origen','Obs']);
-    dg.sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(r=>rows.push([r.fecha,r.cat,r.desc+(r.esSaunaEnThiana?' [SAUNA]':''),r.monto,r.origen,r.obs]));
-    if(sgThiana.length){ rows.push([]); rows.push(['=== GASTOS SAUNA (pagados desde caja Thiana) ===']); sgThiana.forEach(r=>rows.push([r.fecha,r.cat,r.desc,r.monto,'Caja Thiana',r.obs])); }
-    rows.push(['TOTAL GASTOS','','',dg.reduce((s,g)=>s+(g.monto||0),0)+(n.id==='thiana'?sgThiana.reduce((s,g)=>s+(g.monto||0),0):0)]);
+  NEGS.forEach(n=>{
+    const di=ings.filter(r=>r.negocio===n.id),dg=gasts.filter(g=>g.negocio===n.id);
+    const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
+    if(!di.length&&!dg.length&&!sg.length)return;
+    const rows=[['=== INGRESOS DIARIOS ==='],
+      ['Fecha','Hab/Pers','Ef.Bruto','Gs.Caja','Ef.Real','POS Bruto','POS Com(5%)','POS Real','Yape Bruto','Yape Com(5%)','Yape Real','Bodega','Bruto Total','Com Total','Neto Servicio','Obs']];
+    di.sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(r=>{
+      rows.push([r.fecha,r.pers,r.eb,r.eg,r.er,r.pb,r.pc,r.pr,r.yb,r.yc,r.yr,r.bodega||0,r.totalBruto,r.totalCom,r.totalServicio,r.obs||'']);
+      if(r.detalleGastos?.length){
+        rows.push(['  Detalle gastos en caja:','','','Categoría','Descripción','Monto']);
+        r.detalleGastos.forEach(g=>rows.push(['','','','',g.cat,g.desc,g.monto]));
+      }
+    });
+    rows.push(['TOTAL','',di.reduce((s,r)=>s+(r.eb||0),0),di.reduce((s,r)=>s+(r.eg||0),0),di.reduce((s,r)=>s+(r.er||0),0),
+      di.reduce((s,r)=>s+(r.pb||0),0),di.reduce((s,r)=>s+(r.pc||0),0),di.reduce((s,r)=>s+(r.pr||0),0),
+      di.reduce((s,r)=>s+(r.yb||0),0),di.reduce((s,r)=>s+(r.yc||0),0),di.reduce((s,r)=>s+(r.yr||0),0),
+      di.reduce((s,r)=>s+(r.bodega||0),0),di.reduce((s,r)=>s+(r.totalBruto||0),0),
+      di.reduce((s,r)=>s+(r.totalCom||0),0),di.reduce((s,r)=>s+(r.totalServicio||0),0)]);
+    if(dg.length||sg.length){
+      rows.push([],['=== GASTOS EXTRA ==='],['Fecha','Categoría','Descripción','Monto','Medio','Obs']);
+      [...dg,...sg].sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(g=>rows.push([g.fecha,g.cat,g.desc+(g.esSaunaThiana?' [SAUNA]':''),g.monto,g.medio,g.obs||'']));
+      rows.push(['TOTAL GASTOS EXTRA','','',dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0)]);
+    }
     XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),n.name.substring(0,31));
   });
-
-  // Resumen general
-  const resRows=[['RESUMEN GENERAL - INVERSIONES JOSELITO'],[''],['Negocio','Ingresos Reales','Gastos','Comisiones','Efectivo en Caja','Balance Neto']];
-  NEGOCIOS.forEach(n=>{
-    const di=ings.filter(r=>r.negocio===n.id);
-    const dg=gasts.filter(g=>g.negocio===n.id);
-    const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaEnThiana):[];
-    const totI=di.reduce((s,r)=>s+(r.totalReal||0),0);
-    const totG=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
-    const com=di.reduce((s,r)=>s+(r.totalCom||0),0);
-    const caja=di.reduce((s,r)=>s+(r.efReal||0),0)-dg.reduce((s,g)=>s+(g.monto||0),0)-sg.reduce((s,g)=>s+(g.monto||0),0);
-    if(totI||totG) resRows.push([n.name,totI,totG,com,caja,totI-totG]);
+  const res=[['RESUMEN — INVERSIONES JOSELITO'],[''],
+    ['Negocio','Bruto Servicio','Neto Servicio','Bodega','Gs. Extra','Ef. en Caja','Balance']];
+  NEGS.forEach(n=>{
+    const di=ings.filter(r=>r.negocio===n.id),dg=gasts.filter(g=>g.negocio===n.id);
+    const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
+    const bruto=di.reduce((s,r)=>s+(r.totalBruto||0),0),neto=di.reduce((s,r)=>s+(r.totalServicio||0),0);
+    const bod=di.reduce((s,r)=>s+(r.bodega||0),0),gex=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
+    const caja=di.reduce((s,r)=>s+(r.er||0),0)-sg.reduce((s,g)=>s+(g.monto||0),0);
+    if(bruto||neto||gex) res.push([n.name,bruto,neto,bod||0,gex,caja,neto-gex]);
   });
-  const gtI=ings.reduce((s,r)=>s+(r.totalReal||0),0);
-  const gtG=gasts.reduce((s,r)=>s+(r.monto||0),0);
-  resRows.push(['TOTAL GENERAL',gtI,gtG,ings.reduce((s,r)=>s+(r.totalCom||0),0),'',gtI-gtG]);
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(resRows),'RESUMEN GENERAL');
-
-  const f=mes||'todos';
-  XLSX.writeFile(wb,`ContabilidadJoselito_${f}.xlsx`);
+  const tN=ings.reduce((s,r)=>s+(r.totalServicio||0),0),tG=gasts.reduce((s,g)=>s+(g.monto||0),0);
+  res.push(['TOTAL GENERAL',ings.reduce((s,r)=>s+(r.totalBruto||0),0),tN,ings.reduce((s,r)=>s+(r.bodega||0),0),tG,'',tN-tG]);
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(res),'RESUMEN GENERAL');
+  XLSX.writeFile(wb,`Contabilidad_Joselito_${mes||'completo'}.xlsx`);
   toast('✦ Excel descargado');
 }
 
-// ══ MODAL ══
-function abrirModal(){ document.getElementById('modal').classList.add('open'); }
-function cerrarModal(){ document.getElementById('modal').classList.remove('open'); }
-function borrarTodo(){ db={ingresos:[],gastos:[]}; guardar(); cerrarModal(); actualizarTodo(); toast('Datos eliminados'); }
-
-// ══ TOAST ══
-function toast(msg,err=false){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='toast'+(err?' err':'')+ ' show';
-  setTimeout(()=>t.classList.remove('show'),3000);
+// MESES
+function poblarMeses(){
+  const meses=[...new Set([...db.ingresos.map(r=>MK(r.fecha)),...db.gastos.map(r=>MK(r.fecha))])].filter(Boolean).sort().reverse();
+  const L={'01':'Enero','02':'Febrero','03':'Marzo','04':'Abril','05':'Mayo','06':'Junio','07':'Julio','08':'Agosto','09':'Septiembre','10':'Octubre','11':'Noviembre','12':'Diciembre'};
+  const opts=meses.map(m=>{const[y,mo]=m.split('-');return`<option value="${m}">${L[mo]||mo} ${y}</option>`;}).join('');
+  ['h-me','b-me','r-me','e-me'].forEach(id=>{const e=document.getElementById(id),p=e.value;e.innerHTML='<option value="">Todos los meses</option>'+opts;if(p)e.value=p;});
+  document.getElementById('h-ne').innerHTML='<option value="">Todos</option>'+NEGS.map(n=>`<option value="${n.id}">${n.icon} ${n.name}</option>`).join('');
 }
 
-// ══ TABS ══
+// HEADER
+function updateHdr(){
+  const mes=TD().substring(0,7);
+  const tI=db.ingresos.filter(r=>MK(r.fecha)===mes).reduce((s,r)=>s+(r.totalServicio||0),0);
+  const tG=db.gastos.filter(r=>MK(r.fecha)===mes).reduce((s,g)=>s+(g.monto||0),0);
+  document.getElementById('hd-ing').textContent=S(tI);
+  document.getElementById('hd-gas').textContent=S(tG);
+  const bal=tI-tG,el=document.getElementById('hd-bal');
+  el.textContent=S(bal);el.style.color=bal>=0?'var(--gold)':'#f87171';
+}
+
+// DELETE
+function delI(id){db.ingresos=db.ingresos.filter(r=>String(r.id)!==String(id));guardar();actualizarTodo();toast('Eliminado');}
+function delG(id){db.gastos=db.gastos.filter(r=>String(r.id)!==String(id));guardar();actualizarTodo();toast('Eliminado');}
+function borrarTodo(){db={ingresos:[],gastos:[]};guardar();document.getElementById('modal').classList.remove('open');actualizarTodo();toast('Datos eliminados');}
+
+// TOAST
+function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' err':'')+' show';setTimeout(()=>t.classList.remove('show'),3200);}
+
+// TABS
 function tab(id){
   document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(e=>e.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   document.querySelector(`[data-tab="${id}"]`).classList.add('active');
-  if(id==='balance') renderBalance();
-  if(id==='resumen') renderResumen();
-  if(id==='historial') renderHistorial();
+  if(id==='bal')renderBal();if(id==='res')renderRes();if(id==='hist')renderHist();
 }
 
-// ══ ACTUALIZAR TODO ══
-function actualizarTodo(){
-  poblarMeses();
-  updateHeader();
-  renderRecentGastos();
-  renderHistorial();
-  buildNegSelectors();
-}
+// ACTUALIZAR
+function actualizarTodo(){poblarMeses();updateHdr();renderRec();buildSels();renderHist();}
 
-// ══ INIT ══
-cargar();
-buildNegSelectors();
-document.getElementById('i-fecha').value=today();
-document.getElementById('g-fecha').value=today();
-document.getElementById('i-negocio').value=getNeg(negIngreso).name;
-document.getElementById('g-negocio').value=getNeg(negGasto).name;
-// Init visibilidad bodega
-const initNeg=getNeg(negIngreso);
-document.getElementById('bodega-section').style.display=initNeg.tienda?'block':'none';
-document.getElementById('i-personas-wrap').style.display=initNeg.personas?'flex':'none';
+// INIT
+cargar();buildSels();
+document.getElementById('i-f').value=TD();
+document.getElementById('g-f').value=TD();
+document.getElementById('i-n').value=gN(nI).name;
+document.getElementById('g-n').value=gN(nG).name;
+const iN=gN(nI);
+document.getElementById('bod-sec').style.display=iN.tienda?'block':'none';
+document.getElementById('i-pw').style.display=iN.pers?'flex':'none';
 actualizarTodo();
 </script>
 </body>
