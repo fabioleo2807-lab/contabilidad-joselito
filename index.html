@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root{--bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1f242f;--border:#252b38;--border2:#2e3647;--text:#e8edf5;--text2:#7e8fa8;--text3:#4a566a;--gold:#f0c040;--thiana:#4e8ef7;--wellcome:#9b59b6;--glamour:#e91e8c;--vecos:#27ae60;--sauna:#f39c12;--cocina:#e74c3c;--masajes:#1abc9c;--pos:#3b82f6;--yape:#7c3aed;--r:10px;--r2:6px;}
+:root{--bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1f242f;--border:#252b38;--border2:#2e3647;--text:#e8edf5;--text2:#7e8fa8;--text3:#4a566a;--gold:#f0c040;--thiana:#4e8ef7;--wellcome:#9b59b6;--glamour:#e91e8c;--vecos:#27ae60;--sauna:#f39c12;--cocina:#e74c3c;--masajes:#1abc9c;--terrazas:#ff9f43;--sanignacio:#5b6ee1;--pos:#3b82f6;--yape:#7c3aed;--r:10px;--r2:6px;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 header{background:var(--s1);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
@@ -78,6 +78,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
 .p-glamour{background:rgba(233,30,140,.15);color:#f06292}.p-vecos{background:rgba(39,174,96,.15);color:#58d68d}
 .p-sauna{background:rgba(243,156,18,.15);color:#f8c471}.p-cocina{background:rgba(231,76,60,.15);color:#f1948a}
 .p-masajes{background:rgba(26,188,156,.15);color:#48c9b0}
+.p-terrazas{background:rgba(255,159,67,.15);color:#ffb066}.p-sanignacio{background:rgba(91,110,225,.15);color:#8b98f0}
 .p-ing{background:rgba(22,163,74,.1);color:#4ade80}.p-gas{background:rgba(239,68,68,.1);color:#f87171}
 .p-st{background:rgba(243,156,18,.1);color:#f8c471;border:1px solid rgba(243,156,18,.3)}
 .cat{background:var(--s3);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:600;padding:2px 7px;color:var(--text2)}
@@ -173,7 +174,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
       <div class="sec-t">💳 POS / Tarjeta</div>
       <div class="fg fg3">
         <div class="fl"><label>Ingreso bruto POS (S/.)</label><input type="number" id="i-pb" placeholder="0.00" step="0.01" oninput="calc()"></div>
-        <div class="fl"><label>Comisión banco 5%</label><input type="number" id="i-pc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 5%</span></div>
+        <div class="fl"><label>Comisión banco 3.44%</label><input type="number" id="i-pc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 3.44%</span></div>
         <div class="fl"><label>Ingreso real POS (S/.)</label><input type="number" id="i-pr" placeholder="0.00" readonly style="color:var(--pos);font-weight:700"></div>
       </div>
     </div>
@@ -181,16 +182,21 @@ tbody td{padding:9px 12px;vertical-align:middle}
       <div class="sec-t">📱 Yape / Plin</div>
       <div class="fg fg3">
         <div class="fl"><label>Ingreso bruto Yape (S/.)</label><input type="number" id="i-yb" placeholder="0.00" step="0.01" oninput="calc()"></div>
-        <div class="fl"><label>Comisión 5%</label><input type="number" id="i-yc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 5%</span></div>
+        <div class="fl"><label>Comisión Yape</label><input type="number" id="i-yc" placeholder="0.00" readonly value="0.00" style="color:var(--text3)"><span class="note g">Yape no tiene comisión</span></div>
         <div class="fl"><label>Ingreso real Yape (S/.)</label><input type="number" id="i-yr" placeholder="0.00" readonly style="color:var(--yape);font-weight:700"></div>
       </div>
     </div>
     <div class="sec" id="bod-sec">
       <div class="sec-t">🏪 Bodega / Tienda <span style="font-size:10px;color:var(--text3);font-weight:400">(Thiana · Wellcome · Glamour)</span></div>
       <div class="fg fg3">
-        <div class="fl"><label>Venta bruta bodega (S/.)</label><input type="number" id="i-bb" placeholder="0.00" step="0.01" oninput="calc()"></div>
-        <div class="fl"><label>Efectivo bodega</label><input type="number" id="i-bef" placeholder="0.00" step="0.01"></div>
-        <div class="fl"><label>POS/Yape bodega</label><input type="number" id="i-bpo" placeholder="0.00" step="0.01"></div>
+        <div class="fl"><label>Efectivo bodega (S/.)</label><input type="number" id="i-bef" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>POS bruto bodega (S/.)</label><input type="number" id="i-bpb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Comisión POS 3.44%</label><input type="number" id="i-bpc" placeholder="0.00" readonly style="color:#f87171"><span class="note w">Descuento automático 3.44%</span></div>
+      </div>
+      <div class="fg fg3" style="margin-top:12px">
+        <div class="fl"><label>POS real bodega (S/.)</label><input type="number" id="i-bpr" placeholder="0.00" readonly style="color:var(--pos);font-weight:700"></div>
+        <div class="fl"><label>Yape bruto bodega (S/.)</label><input type="number" id="i-byb" placeholder="0.00" step="0.01" oninput="calc()"></div>
+        <div class="fl"><label>Yape real bodega (S/.)</label><input type="number" id="i-byr" placeholder="0.00" readonly style="color:var(--yape);font-weight:700"><span class="note g">Sin comisión</span></div>
       </div>
       <div class="note" style="margin-top:6px">Bodega se contabiliza por separado, no se suma al ingreso por servicio.</div>
     </div>
@@ -198,10 +204,10 @@ tbody td{padding:9px 12px;vertical-align:middle}
       <div class="rb-t">✦ Resumen del día</div>
       <div class="rb-g">
         <div class="rb-i"><div class="rb-l">Ingreso bruto total</div><div class="rb-v" id="r-b" style="color:var(--text)">S/. 0.00</div><div class="rb-s">Ef + POS + Yape</div></div>
-        <div class="rb-i"><div class="rb-l">Comisiones 5%</div><div class="rb-v" id="r-c" style="color:#f87171">S/. 0.00</div><div class="rb-s">POS + Yape</div></div>
+        <div class="rb-i"><div class="rb-l">Comisión POS 3.44%</div><div class="rb-v" id="r-c" style="color:#f87171">S/. 0.00</div><div class="rb-s">Solo POS</div></div>
         <div class="rb-i"><div class="rb-l">Gastos en caja</div><div class="rb-v" id="r-g" style="color:#f87171">S/. 0.00</div><div class="rb-s">Del efectivo</div></div>
         <div class="rb-i"><div class="rb-l">✦ Ingreso neto servicio</div><div class="rb-v" id="r-n" style="color:var(--gold)">S/. 0.00</div><div class="rb-s">Sin gastos caja</div></div>
-        <div class="rb-i"><div class="rb-l">🏪 Bodega</div><div class="rb-v" id="r-bd" style="color:#48c9b0">S/. 0.00</div><div class="rb-s">Independiente</div></div>
+        <div class="rb-i"><div class="rb-l">🏪 Bodega neta</div><div class="rb-v" id="r-bd" style="color:#48c9b0">S/. 0.00</div><div class="rb-s">Independiente</div></div>
       </div>
     </div>
     <div class="fl" style="margin-top:12px"><label>Observaciones</label><input type="text" id="i-ob" placeholder="Notas del día..."></div>
@@ -266,7 +272,7 @@ tbody td{padding:9px 12px;vertical-align:middle}
     <select id="h-ti" onchange="renderHist()"><option value="">Todos</option><option value="i">Ingresos</option><option value="g">Gastos extra</option></select>
     <input class="srch" id="h-q" placeholder="🔍 Buscar..." oninput="renderHist()">
   </div>
-  <div class="tw"><table><thead><tr><th>Fecha</th><th>Negocio</th><th>Tipo</th><th>Detalle</th><th style="text-align:right">Ef.Real</th><th style="text-align:right">POS Real</th><th style="text-align:right">Yape Real</th><th style="text-align:right">Bodega</th><th style="text-align:right">Gs.Caja</th><th style="text-align:right">Neto</th><th></th></tr></thead>
+  <div class="tw"><table><thead><tr><th>Fecha</th><th>Negocio</th><th>Tipo</th><th>Detalle</th><th style="text-align:right">Ef.Real</th><th style="text-align:right">POS Real</th><th style="text-align:right">Yape Real</th><th style="text-align:right">Bodega Neta</th><th style="text-align:right">Gs.Caja</th><th style="text-align:right">Neto</th><th></th></tr></thead>
   <tbody id="h-tb"></tbody></table></div>
 </div>
 
@@ -314,8 +320,8 @@ tbody td{padding:9px 12px;vertical-align:middle}
 <div class="toast" id="toast"></div>
 
 <script>
-const COM=0.05;
-const KEY='ij_v3';
+const COM_POS=0.0344; // comisión banco POS 3.44% (Yape no tiene comisión)
+const KEY='ij_v4';
 const NEGS=[
   {id:'thiana',name:'Thiana',icon:'🏨',color:'var(--thiana)',tipo:'hotel',pers:'Habitaciones',tienda:true},
   {id:'wellcome',name:'Wellcome',icon:'🏩',color:'var(--wellcome)',tipo:'hotel',pers:'Habitaciones',tienda:true},
@@ -324,6 +330,8 @@ const NEGS=[
   {id:'sauna',name:'Sauna Oro',icon:'🧖',color:'var(--sauna)',tipo:'servicio',pers:'Personas',tienda:false},
   {id:'cocina',name:'Cocina',icon:'🍳',color:'var(--cocina)',tipo:'cocina',pers:null,tienda:false},
   {id:'masajes',name:'Masajes',icon:'💆',color:'var(--masajes)',tipo:'servicio',pers:'Personas',tienda:false},
+  {id:'terrazas',name:'Terrazas',icon:'🌇',color:'var(--terrazas)',tipo:'hotel',pers:'Habitaciones',tienda:false},
+  {id:'sanignacio',name:'San Ignacio',icon:'🏛️',color:'var(--sanignacio)',tipo:'hotel',pers:'Habitaciones',tienda:false},
 ];
 const CATS_CAJA=['Personal','Materiales','Insumos','Gas','Gas cocina','Movilidad','Devolución','Hierbas sauna','Fruta','Alitas','Masajista','Implementos','Otro'];
 let db={ingresos:[],gastos:[]};
@@ -380,19 +388,30 @@ function getFilas(){return gFilas.map(f=>({cat:document.getElementById('gc-'+f.i
 
 // CALCULOS
 function calc(){
-  const eb=v('i-eb'),eg=v('i-eg'),pb=v('i-pb'),yb=v('i-yb'),bb=v('i-bb');
-  const pc=pb*COM,yc=yb*COM,pr=pb-pc,yr=yb-yc,er=eb-eg;
-  sv('i-pc',pc);sv('i-pr',pr);sv('i-yc',yc);sv('i-yr',yr);sv('i-er',er);
-  // Sincronizar total filas → campo gastos caja
+  // 1) Sincronizar total de filas de detalle → campo "gastos en caja" ANTES de calcular restas,
+  //    para que el efectivo real siempre coincida con el detalle.
   const tf=getFilas().reduce((s,g)=>s+g.monto,0);
   if(tf>0){document.getElementById('i-eg').value=tf.toFixed(2);}
-  const egR=v('i-eg');
-  const bruto=eb+pb+yb,com=pc+yc,neto=(eb-egR)+pr+yr;
+  else if(gFilas.length>0){document.getElementById('i-eg').value='0.00';}
+
+  const eb=v('i-eb'),egR=v('i-eg'),pb=v('i-pb'),yb=v('i-yb');
+
+  // 2) Comisiones: solo POS tiene comisión (3.44%). Yape no tiene comisión.
+  const pc=pb*COM_POS,pr=pb-pc,yc=0,yr=yb-yc,er=eb-egR;
+  sv('i-pc',pc);sv('i-pr',pr);sv('i-yc',yc);sv('i-yr',yr);sv('i-er',er);
+
+  const bruto=eb+pb+yb,com=pc+yc,neto=er+pr+yr;
   document.getElementById('r-b').textContent=S(bruto);
   document.getElementById('r-c').textContent=S(com);
   document.getElementById('r-g').textContent=S(egR);
   document.getElementById('r-n').textContent=S(neto);
-  document.getElementById('r-bd').textContent=S(bb);
+
+  // 3) Bodega: mismo criterio de comisión (POS 3.44%, Yape sin comisión)
+  const bef=v('i-bef'),bpb=v('i-bpb'),byb=v('i-byb');
+  const bpc=bpb*COM_POS,bpr=bpb-bpc,byr=byb;
+  sv('i-bpc',bpc);sv('i-bpr',bpr);sv('i-byr',byr);
+  const bNeto=bef+bpr+byr;
+  document.getElementById('r-bd').textContent=S(bNeto);
 }
 
 // GUARDAR INGRESO
@@ -402,22 +421,24 @@ function guardarIng(){
   const eb=v('i-eb'),eg=v('i-eg'),er=v('i-er');
   const pb=v('i-pb'),pc=v('i-pc'),pr=v('i-pr');
   const yb=v('i-yb'),yc=v('i-yc'),yr=v('i-yr');
-  const bb=v('i-bb'),bef=v('i-bef'),bpo=v('i-bpo');
+  const bef=v('i-bef'),bpb=v('i-bpb'),bpc=v('i-bpc'),bpr=v('i-bpr'),byb=v('i-byb'),byr=v('i-byr');
+  const bBruto=bef+bpb+byb,bNeto=bef+bpr+byr;
   const pers=parseInt(document.getElementById('i-p').value)||0;
   const obs=document.getElementById('i-ob').value;
   const detalleGastos=getFilas();
-  if(eb+pb+yb+bb<=0) return toast('⚠ Ingresa al menos un monto',true);
+  if(eb+pb+yb+bBruto<=0) return toast('⚠ Ingresa al menos un monto',true);
   const totalBruto=eb+pb+yb,totalCom=pc+yc,totalServicio=er+pr+yr;
   db.ingresos.unshift({id:Date.now()+Math.random(),fecha,negocio:nI,pers,
     eb,eg,er,pb,pc,pr,yb,yc,yr,
-    bodega:bb,bodegaEf:bef,bodegaPos:bpo,
+    bodegaEf:bef,bodegaPosBruto:bpb,bodegaPosCom:bpc,bodegaPosReal:bpr,bodegaYapeBruto:byb,bodegaYapeReal:byr,
+    bodega:bBruto,bodegaNeto:bNeto,
     totalBruto,totalCom,totalServicio,
     detalleGastos,obs});
   guardar();actualizarTodo();limpiarIng();
   toast(`✦ Ingreso ${gN(nI).name} guardado`);
 }
 function limpiarIng(){
-  ['i-eb','i-eg','i-er','i-pb','i-pc','i-pr','i-yb','i-yc','i-yr','i-bb','i-bef','i-bpo','i-p','i-ob'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  ['i-eb','i-eg','i-er','i-pb','i-pc','i-pr','i-yb','i-yc','i-yr','i-bef','i-bpb','i-bpc','i-bpr','i-byb','i-byr','i-p','i-ob'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   document.getElementById('i-f').value=TD();
   gFilas=[];document.getElementById('gd-body').innerHTML='';
   ['r-b','r-c','r-g','r-n','r-bd'].forEach(id=>document.getElementById(id).textContent='S/. 0.00');
@@ -490,7 +511,7 @@ function renderHist(){
       <td style="text-align:right;color:#4ade80">${r.er?N(r.er):'—'}</td>
       <td style="text-align:right;color:var(--pos)">${r.pr?N(r.pr):'—'}</td>
       <td style="text-align:right;color:var(--yape)">${r.yr?N(r.yr):'—'}</td>
-      <td style="text-align:right;color:#48c9b0">${r.bodega?N(r.bodega):'—'}</td>
+      <td style="text-align:right;color:#48c9b0">${r.bodegaNeto?N(r.bodegaNeto):'—'}</td>
       <td style="text-align:right;color:#f87171">${r.eg?'('+N(r.eg)+')':'—'}</td>
       <td style="text-align:right;color:var(--gold);font-weight:700">${N(r.totalServicio)}</td>
       <td><button class="del" onclick="delI('${r.id}')">🗑</button></td>
@@ -519,7 +540,9 @@ function renderBal(){
     const eb=ings.reduce((s,r)=>s+(r.eb||0),0),pb=ings.reduce((s,r)=>s+(r.pb||0),0),yb=ings.reduce((s,r)=>s+(r.yb||0),0);
     const er=ings.reduce((s,r)=>s+(r.er||0),0),pr=ings.reduce((s,r)=>s+(r.pr||0),0),yr=ings.reduce((s,r)=>s+(r.yr||0),0);
     const eg=ings.reduce((s,r)=>s+(r.eg||0),0),com=ings.reduce((s,r)=>s+(r.totalCom||0),0);
-    const bod=ings.reduce((s,r)=>s+(r.bodega||0),0);
+    const bodBruto=ings.reduce((s,r)=>s+(r.bodega||0),0);
+    const bodCom=ings.reduce((s,r)=>s+(r.bodegaPosCom||0),0);
+    const bodNeto=ings.reduce((s,r)=>s+(r.bodegaNeto||0),0);
     const servBruto=eb+pb+yb,servNeto=ings.reduce((s,r)=>s+(r.totalServicio||0),0);
     const totGex=gex.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
     const caja=er-sg.reduce((s,g)=>s+(g.monto||0),0);
@@ -527,7 +550,6 @@ function renderBal(){
 
     // Tabla detalle por día
     const diaRows = ings.map(r=>{
-      const posYape = (r.pr||0)+(r.yr||0);
       return `<tr>
         <td style="color:var(--text2);font-size:11px;white-space:nowrap">${F(r.fecha)}</td>
         ${n.pers?`<td style="text-align:center;font-size:11px;color:var(--text2)">${r.pers||'—'}</td>`:''}
@@ -535,7 +557,7 @@ function renderBal(){
         <td style="text-align:right;color:var(--pos);font-size:11px">${(r.pr||0)>0?N(r.pr):'—'}</td>
         <td style="text-align:right;color:var(--yape);font-size:11px">${(r.yr||0)>0?N(r.yr):'—'}</td>
         <td style="text-align:right;font-weight:700;font-size:11px;color:var(--gold)">${N(r.totalServicio)}</td>
-        ${bod>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${r.bodega?N(r.bodega):'—'}</td>`:''}
+        ${bodBruto>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${r.bodegaNeto?N(r.bodegaNeto):'—'}</td>`:''}
         <td style="text-align:right;font-size:11px;color:#f87171">${r.eg?'('+N(r.eg)+')':'—'}</td>
       </tr>`;
     }).join('');
@@ -547,7 +569,7 @@ function renderBal(){
       <td style="text-align:right;font-size:11px;color:var(--pos)">${N(pr)}</td>
       <td style="text-align:right;font-size:11px;color:var(--yape)">${N(yr)}</td>
       <td style="text-align:right;font-size:11px;color:var(--gold)">${N(servNeto)}</td>
-      ${bod>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${N(bod)}</td>`:''}
+      ${bodBruto>0?`<td style="text-align:right;font-size:11px;color:#48c9b0">${N(bodNeto)}</td>`:''}
       <td style="text-align:right;font-size:11px;color:#f87171">(${N(eg)})</td>
     </tr>`;
 
@@ -570,7 +592,7 @@ function renderBal(){
               <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--pos)">POS</th>
               <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--yape)">Yape</th>
               <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gold)">Neto</th>
-              ${bod>0?`<th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#48c9b0">Bodega</th>`:''}
+              ${bodBruto>0?`<th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#48c9b0">Bod.Neta</th>`:''}
               <th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#f87171">Gs.Caja</th>
             </tr></thead>
             <tbody>${diaRows}</tbody>
@@ -583,10 +605,13 @@ function renderBal(){
         <div class="br"><span class="l">POS bruto</span><span class="v">${S(pb)}</span></div>
         <div class="br"><span class="l">Yape bruto</span><span class="v">${S(yb)}</span></div>
         <div class="br"><span class="l2">Total bruto</span><span class="v" style="font-weight:700">${S(servBruto)}</span></div>
-        <div class="br"><span class="l">— Comisiones 5% (POS+Yape)</span><span class="v vn">(${S(com)})</span></div>
+        <div class="br"><span class="l">— Comisión POS 3.44%</span><span class="v vn">(${S(com)})</span></div>
         <div class="br"><span class="l">— Gastos pagados en caja</span><span class="v vn">(${S(eg)})</span></div>
         <div class="br tot"><span class="l2">Ingreso neto servicio</span><span class="v vp">${S(servNeto)}</span></div>
-        ${bod>0?`<div class="sdiv">🏪 BODEGA (INDEPENDIENTE)</div><div class="br"><span class="l">Venta bodega</span><span class="v vb">${S(bod)}</span></div>`:''}
+        ${bodBruto>0?`<div class="sdiv">🏪 BODEGA (INDEPENDIENTE)</div>
+        <div class="br"><span class="l">Venta bruta bodega</span><span class="v">${S(bodBruto)}</span></div>
+        <div class="br"><span class="l">— Comisión POS 3.44%</span><span class="v vn">(${S(bodCom)})</span></div>
+        <div class="br tot"><span class="l2">Neto bodega</span><span class="v vb">${S(bodNeto)}</span></div>`:''}
         <div class="sdiv">GASTOS EXTRA (Tarjeta / Transferencia)</div>
         ${gex.length?gex.map(g=>`<div class="br"><span class="l"><span class="cat">${g.cat}</span> ${g.desc}</span><span class="v vn">(${S(g.monto)})</span></div>`).join(''):`<div class="br"><span class="l" style="color:var(--text3)">Sin gastos extra</span></div>`}
         ${n.id==='thiana'&&sg.length?`<div style="font-size:10px;color:var(--sauna);font-weight:700;margin-top:6px">🧖 Gastos Sauna (caja Thiana):</div>${sg.map(g=>`<div class="br"><span class="l">${g.cat}: ${g.desc}</span><span class="v vn">(${S(g.monto)})</span></div>`).join('')}`:''}
@@ -596,7 +621,7 @@ function renderBal(){
         <div class="sdiv">RESULTADO</div>
         <div class="br"><span class="l">💵 Efectivo en caja</span><span class="v ${caja>=0?'vp':'vn'}">${S(caja)}</span></div>
         <div class="br tot"><span>⚖ Balance neto</span><span class="${bal>=0?'vp':'vn'}">${S(bal)}</span></div>
-        ${bod>0?`<div class="br tot" style="color:#48c9b0"><span>⚖ Balance c/bodega</span><span>${S(bal+bod)}</span></div>`:''}
+        ${bodBruto>0?`<div class="br tot" style="color:#48c9b0"><span>⚖ Balance c/bodega</span><span>${S(bal+bodNeto)}</span></div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -611,37 +636,38 @@ function renderRes(){
   const tNeto=ings.reduce((s,r)=>s+(r.totalServicio||0),0);
   const tCom=ings.reduce((s,r)=>s+(r.totalCom||0),0);
   const tGCaja=ings.reduce((s,r)=>s+(r.eg||0),0);
-  const tBod=ings.reduce((s,r)=>s+(r.bodega||0),0);
+  const tBodBruto=ings.reduce((s,r)=>s+(r.bodega||0),0);
+  const tBodNeto=ings.reduce((s,r)=>s+(r.bodegaNeto||0),0);
   const tGEx=gasts.reduce((s,g)=>s+(g.monto||0),0);
   document.getElementById('r-stats').innerHTML=`
     <div class="stat" style="--sc:var(--text2)"><div class="sl">Bruto Total</div><div class="sv">${S(tBruto)}</div><div class="ss">Antes de descuentos</div></div>
     <div class="stat" style="--sc:var(--gold)"><div class="sl">Neto Servicio</div><div class="sv" style="color:var(--gold)">${S(tNeto)}</div><div class="ss">Después de com. y gs. caja</div></div>
-    <div class="stat" style="--sc:#48c9b0"><div class="sl">Bodega</div><div class="sv" style="color:#48c9b0">${S(tBod)}</div><div class="ss">Independiente</div></div>
-    <div class="stat" style="--sc:#f87171"><div class="sl">Comisiones 5%</div><div class="sv" style="color:#f87171">${S(tCom)}</div><div class="ss">POS + Yape</div></div>
+    <div class="stat" style="--sc:#48c9b0"><div class="sl">Bodega Neta</div><div class="sv" style="color:#48c9b0">${S(tBodNeto)}</div><div class="ss">Bruto: ${S(tBodBruto)}</div></div>
+    <div class="stat" style="--sc:#f87171"><div class="sl">Comisión POS 3.44%</div><div class="sv" style="color:#f87171">${S(tCom)}</div><div class="ss">Solo POS (Yape sin comisión)</div></div>
     <div class="stat" style="--sc:#f87171"><div class="sl">Gastos en Caja</div><div class="sv" style="color:#f87171">${S(tGCaja)}</div><div class="ss">Diarios del efectivo</div></div>
     <div class="stat" style="--sc:#f87171"><div class="sl">Gastos Extra</div><div class="sv" style="color:#f87171">${S(tGEx)}</div><div class="ss">Tarjeta / transferencia</div></div>
     <div class="stat" style="--sc:${tNeto-tGEx>=0?'#4ade80':'#f87171'}"><div class="sl">Balance Neto</div><div class="sv" style="color:${tNeto-tGEx>=0?'#4ade80':'#f87171'}">${S(tNeto-tGEx)}</div><div class="ss">Neto − Gastos extra</div></div>`;
 
   // Tabla ingresos bruto/neto
-  let h=`<thead><tr><th>Negocio</th><th>Días</th><th>Ef.Bruto</th><th>POS Bruto</th><th>Yape Bruto</th><th>BRUTO</th><th>Comisiones</th><th>Gs.Caja</th><th>NETO SERVICIO</th><th>🏪 Bodega</th></tr></thead><tbody>`;
+  let h=`<thead><tr><th>Negocio</th><th>Días</th><th>Ef.Bruto</th><th>POS Bruto</th><th>Yape Bruto</th><th>BRUTO</th><th>Comisión</th><th>Gs.Caja</th><th>NETO SERVICIO</th><th>🏪 Bodega Neta</th></tr></thead><tbody>`;
   NEGS.forEach(n=>{
     const d=ings.filter(r=>r.negocio===n.id);if(!d.length)return;
     const eb=d.reduce((s,r)=>s+(r.eb||0),0),pb=d.reduce((s,r)=>s+(r.pb||0),0),yb=d.reduce((s,r)=>s+(r.yb||0),0);
     const bruto=eb+pb+yb,com=d.reduce((s,r)=>s+(r.totalCom||0),0),gc=d.reduce((s,r)=>s+(r.eg||0),0);
-    const neto=d.reduce((s,r)=>s+(r.totalServicio||0),0),bod=d.reduce((s,r)=>s+(r.bodega||0),0);
+    const neto=d.reduce((s,r)=>s+(r.totalServicio||0),0),bodN=d.reduce((s,r)=>s+(r.bodegaNeto||0),0);
     h+=`<tr><td>${pill(n.id)} ${n.name}</td><td style="text-align:right">${d.length}</td>
       <td style="text-align:right">${N(eb)}</td><td style="text-align:right">${N(pb)}</td><td style="text-align:right">${N(yb)}</td>
       <td style="text-align:right;font-weight:700">${N(bruto)}</td>
       <td style="text-align:right;color:#f87171">(${N(com)})</td><td style="text-align:right;color:#f87171">(${N(gc)})</td>
       <td style="text-align:right;color:var(--gold);font-weight:700">${N(neto)}</td>
-      <td style="text-align:right;color:#48c9b0">${bod?N(bod):'—'}</td></tr>`;
+      <td style="text-align:right;color:#48c9b0">${bodN?N(bodN):'—'}</td></tr>`;
   });
   h+=`<tr class="grd"><td>TOTAL</td><td style="text-align:right">${ings.length}</td>
     <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.eb||0),0))}</td>
     <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.pb||0),0))}</td>
     <td style="text-align:right">${N(ings.reduce((s,r)=>s+(r.yb||0),0))}</td>
     <td style="text-align:right">${N(tBruto)}</td><td style="text-align:right">(${N(tCom)})</td><td style="text-align:right">(${N(tGCaja)})</td>
-    <td style="text-align:right;color:var(--gold)">${N(tNeto)}</td><td style="text-align:right;color:#48c9b0">${N(tBod)}</td></tr></tbody>`;
+    <td style="text-align:right;color:var(--gold)">${N(tNeto)}</td><td style="text-align:right;color:#48c9b0">${N(tBodNeto)}</td></tr></tbody>`;
   document.getElementById('r-ing').innerHTML=h;
 
   // Gastos extra por categoría
@@ -656,24 +682,24 @@ function renderRes(){
   document.getElementById('r-gas').innerHTML=g2;
 
   // Balance
-  let b=`<thead><tr><th>Negocio</th><th>Bruto</th><th>Neto Servicio</th><th>🏪 Bodega</th><th>Gs. Extra</th><th>Ef. en Caja</th><th>Balance</th></tr></thead><tbody>`;
+  let b=`<thead><tr><th>Negocio</th><th>Bruto</th><th>Neto Servicio</th><th>🏪 Bodega Neta</th><th>Gs. Extra</th><th>Ef. en Caja</th><th>Balance</th></tr></thead><tbody>`;
   NEGS.forEach(n=>{
     const di=ings.filter(r=>r.negocio===n.id),dg=gasts.filter(g=>g.negocio===n.id);
     const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
     if(!di.length&&!dg.length)return;
     const bruto=di.reduce((s,r)=>s+(r.totalBruto||0),0),neto=di.reduce((s,r)=>s+(r.totalServicio||0),0);
-    const bod=di.reduce((s,r)=>s+(r.bodega||0),0);
+    const bodN=di.reduce((s,r)=>s+(r.bodegaNeto||0),0);
     const gex=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
     const caja=di.reduce((s,r)=>s+(r.er||0),0)-sg.reduce((s,g)=>s+(g.monto||0),0);
     const bal=neto-gex;
     b+=`<tr><td>${pill(n.id)} ${n.name}</td><td style="text-align:right">${N(bruto)}</td>
-      <td style="text-align:right;color:#4ade80">${N(neto)}</td><td style="text-align:right;color:#48c9b0">${bod?N(bod):'—'}</td>
+      <td style="text-align:right;color:#4ade80">${N(neto)}</td><td style="text-align:right;color:#48c9b0">${bodN?N(bodN):'—'}</td>
       <td style="text-align:right;color:#f87171">${gex?'('+N(gex)+')':'—'}</td>
       <td style="text-align:right;color:${caja>=0?'#4ade80':'#f87171'}">${N(caja)}</td>
       <td style="text-align:right;font-weight:700;color:${bal>=0?'var(--gold)':'#f87171'}">${N(bal)}</td></tr>`;
   });
   b+=`<tr class="grd"><td>TOTAL</td><td style="text-align:right">${N(tBruto)}</td><td style="text-align:right;color:#4ade80">${N(tNeto)}</td>
-    <td style="text-align:right;color:#48c9b0">${N(tBod)}</td><td style="text-align:right;color:#f87171">(${N(tGEx)})</td>
+    <td style="text-align:right;color:#48c9b0">${N(tBodNeto)}</td><td style="text-align:right;color:#f87171">(${N(tGEx)})</td>
     <td style="text-align:right">—</td><td style="text-align:right;color:${tNeto-tGEx>=0?'var(--gold)':'#f87171'}">${N(tNeto-tGEx)}</td></tr></tbody>`;
   document.getElementById('r-bal').innerHTML=b;
 }
@@ -690,9 +716,10 @@ function exportar(){
     const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
     if(!di.length&&!dg.length&&!sg.length)return;
     const rows=[['=== INGRESOS DIARIOS ==='],
-      ['Fecha','Hab/Pers','Ef.Bruto','Gs.Caja','Ef.Real','POS Bruto','POS Com(5%)','POS Real','Yape Bruto','Yape Com(5%)','Yape Real','Bodega','Bruto Total','Com Total','Neto Servicio','Obs']];
+      ['Fecha','Hab/Pers','Ef.Bruto','Gs.Caja','Ef.Real','POS Bruto','POS Com(3.44%)','POS Real','Yape Bruto','Yape Com','Yape Real','Bruto Total','Com Total','Neto Servicio','Bod.Efectivo','Bod.POS Bruto','Bod.POS Com','Bod.POS Real','Bod.Yape Bruto','Bod.Yape Real','Bodega Neta','Obs']];
     di.sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(r=>{
-      rows.push([r.fecha,r.pers,r.eb,r.eg,r.er,r.pb,r.pc,r.pr,r.yb,r.yc,r.yr,r.bodega||0,r.totalBruto,r.totalCom,r.totalServicio,r.obs||'']);
+      rows.push([r.fecha,r.pers,r.eb,r.eg,r.er,r.pb,r.pc,r.pr,r.yb,r.yc||0,r.yr,r.totalBruto,r.totalCom,r.totalServicio,
+        r.bodegaEf||0,r.bodegaPosBruto||0,r.bodegaPosCom||0,r.bodegaPosReal||0,r.bodegaYapeBruto||0,r.bodegaYapeReal||0,r.bodegaNeto||0,r.obs||'']);
       if(r.detalleGastos?.length){
         rows.push(['  Detalle gastos en caja:','','','Categoría','Descripción','Monto']);
         r.detalleGastos.forEach(g=>rows.push(['','','','',g.cat,g.desc,g.monto]));
@@ -701,8 +728,10 @@ function exportar(){
     rows.push(['TOTAL','',di.reduce((s,r)=>s+(r.eb||0),0),di.reduce((s,r)=>s+(r.eg||0),0),di.reduce((s,r)=>s+(r.er||0),0),
       di.reduce((s,r)=>s+(r.pb||0),0),di.reduce((s,r)=>s+(r.pc||0),0),di.reduce((s,r)=>s+(r.pr||0),0),
       di.reduce((s,r)=>s+(r.yb||0),0),di.reduce((s,r)=>s+(r.yc||0),0),di.reduce((s,r)=>s+(r.yr||0),0),
-      di.reduce((s,r)=>s+(r.bodega||0),0),di.reduce((s,r)=>s+(r.totalBruto||0),0),
-      di.reduce((s,r)=>s+(r.totalCom||0),0),di.reduce((s,r)=>s+(r.totalServicio||0),0)]);
+      di.reduce((s,r)=>s+(r.totalBruto||0),0),di.reduce((s,r)=>s+(r.totalCom||0),0),di.reduce((s,r)=>s+(r.totalServicio||0),0),
+      di.reduce((s,r)=>s+(r.bodegaEf||0),0),di.reduce((s,r)=>s+(r.bodegaPosBruto||0),0),di.reduce((s,r)=>s+(r.bodegaPosCom||0),0),
+      di.reduce((s,r)=>s+(r.bodegaPosReal||0),0),di.reduce((s,r)=>s+(r.bodegaYapeBruto||0),0),di.reduce((s,r)=>s+(r.bodegaYapeReal||0),0),
+      di.reduce((s,r)=>s+(r.bodegaNeto||0),0)]);
     if(dg.length||sg.length){
       rows.push([],['=== GASTOS EXTRA ==='],['Fecha','Categoría','Descripción','Monto','Medio','Obs']);
       [...dg,...sg].sort((a,b)=>a.fecha>b.fecha?1:-1).forEach(g=>rows.push([g.fecha,g.cat,g.desc+(g.esSaunaThiana?' [SAUNA]':''),g.monto,g.medio,g.obs||'']));
@@ -711,17 +740,17 @@ function exportar(){
     XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),n.name.substring(0,31));
   });
   const res=[['RESUMEN — INVERSIONES JOSELITO'],[''],
-    ['Negocio','Bruto Servicio','Neto Servicio','Bodega','Gs. Extra','Ef. en Caja','Balance']];
+    ['Negocio','Bruto Servicio','Neto Servicio','Bodega Neta','Gs. Extra','Ef. en Caja','Balance']];
   NEGS.forEach(n=>{
     const di=ings.filter(r=>r.negocio===n.id),dg=gasts.filter(g=>g.negocio===n.id);
     const sg=n.id==='thiana'?gasts.filter(g=>g.esSaunaThiana):[];
     const bruto=di.reduce((s,r)=>s+(r.totalBruto||0),0),neto=di.reduce((s,r)=>s+(r.totalServicio||0),0);
-    const bod=di.reduce((s,r)=>s+(r.bodega||0),0),gex=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
+    const bodN=di.reduce((s,r)=>s+(r.bodegaNeto||0),0),gex=dg.reduce((s,g)=>s+(g.monto||0),0)+sg.reduce((s,g)=>s+(g.monto||0),0);
     const caja=di.reduce((s,r)=>s+(r.er||0),0)-sg.reduce((s,g)=>s+(g.monto||0),0);
-    if(bruto||neto||gex) res.push([n.name,bruto,neto,bod||0,gex,caja,neto-gex]);
+    if(bruto||neto||gex) res.push([n.name,bruto,neto,bodN||0,gex,caja,neto-gex]);
   });
   const tN=ings.reduce((s,r)=>s+(r.totalServicio||0),0),tG=gasts.reduce((s,g)=>s+(g.monto||0),0);
-  res.push(['TOTAL GENERAL',ings.reduce((s,r)=>s+(r.totalBruto||0),0),tN,ings.reduce((s,r)=>s+(r.bodega||0),0),tG,'',tN-tG]);
+  res.push(['TOTAL GENERAL',ings.reduce((s,r)=>s+(r.totalBruto||0),0),tN,ings.reduce((s,r)=>s+(r.bodegaNeto||0),0),tG,'',tN-tG]);
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(res),'RESUMEN GENERAL');
   XLSX.writeFile(wb,`Contabilidad_Joselito_${mes||'completo'}.xlsx`);
   toast('✦ Excel descargado');
