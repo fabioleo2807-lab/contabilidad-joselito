@@ -336,7 +336,16 @@ const NEGS=[
 const CATS_CAJA=['Personal','Materiales','Insumos','Gas','Gas cocina','Movilidad','Devolución','Hierbas sauna','Fruta','Alitas','Masajista','Implementos','Otro'];
 let db={ingresos:[],gastos:[]};
 let nI='thiana',nG='thiana',gFilas=[];
-function cargar(){try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r);}catch(e){}}
+function cargar(){
+  try{
+    const r=localStorage.getItem(KEY);
+    if(r){db=JSON.parse(r);return;}
+    // Migración automática: si no hay datos en la clave nueva (ij_v4),
+    // busca la versión anterior (ij_v3) para no perder el historial.
+    const old=localStorage.getItem('ij_v3');
+    if(old){db=JSON.parse(old);guardar();}
+  }catch(e){}
+}
 function guardar(){localStorage.setItem(KEY,JSON.stringify(db));}
 const gN=id=>NEGS.find(n=>n.id===id)||NEGS[0];
 const S=n=>'S/. '+Number(n||0).toLocaleString('es-PE',{minimumFractionDigits:2,maximumFractionDigits:2});
